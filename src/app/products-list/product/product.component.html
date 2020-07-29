@@ -1,0 +1,20 @@
+<h3 class="item-name">{{item.name | uppercase}}</h3>
+<section class="item-details"> 
+    <img [src]="item.photo" alt="item photo" class="item-photo">
+    <article class="item-info">
+        <p class="item-price"><b>Price:</b> {{item.price | currency}}</p>
+        <p class="item-color"><b>Color:</b> {{item.color}}</p>
+        <ng-container *ngIf="item.isAvailable; else noAvailable">
+            <h4>Sizes:</h4>
+            <ul class="sizes-block" >
+                <li class="item-size" *ngFor="let size of item.sizes">{{size}}</li>
+            </ul>
+            <app-button [cartItem]="item"></app-button>
+        </ng-container>
+        <ng-template #noAvailable>
+            <p class="item-out-of-stock">At the present moment is not available</p>
+        </ng-template>        
+        <p class="item-show-description" (click)="showDetails = !showDetails">Details &#9759;</p>
+    </article>    
+</section>
+<p class="item-description" *ngIf="showDetails">{{item.description}}</p>
