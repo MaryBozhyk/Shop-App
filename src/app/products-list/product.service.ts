@@ -65,7 +65,7 @@ export class ProductService {
       color: 'Black',
       photo: 'assets/ADI12827_1000_6.jpg'
     }
-  ]
+  ];
 
   constructor() { }
 

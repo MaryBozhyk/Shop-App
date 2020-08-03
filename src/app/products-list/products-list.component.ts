@@ -16,8 +16,8 @@ export class ProductsListComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
-  trackByName(index: number, product: Product): string { 
-    return product.name; 
+  trackByName(index: number, product: Product): string {
+    return product.name;
   }
 
 }

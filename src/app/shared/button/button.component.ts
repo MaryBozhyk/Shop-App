@@ -11,7 +11,7 @@ export class ButtonComponent {
 
   constructor(private cartService: CartService) { }
 
-  onBuy():void {
+  onBuy(): void {
     console.log('You have bought item');
     this.cartService.addItemtoCart(this.cartItem);
   }

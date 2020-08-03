@@ -8,6 +8,6 @@ import { CartService } from './core/cart.service';
 })
 export class AppComponent {
   title = 'shop';
-  
+
   constructor(public cartServise: CartService) {}
 }
