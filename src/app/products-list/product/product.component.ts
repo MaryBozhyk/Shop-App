@@ -7,9 +7,9 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent implements OnInit {
-  @Input() item;
+  @Input() item; // any?
 
-  showDetails: boolean = false;
+  showDetails = false;
 
   constructor() { }
 

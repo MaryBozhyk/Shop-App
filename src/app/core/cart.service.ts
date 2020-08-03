@@ -17,22 +17,22 @@ export class CartService {
 
   addItemtoCart(item: Product): void {
     this.newCartItem = {
-      photo: item.photo, 
-      name: item.name, 
-      price: item.price, 
+      photo: item.photo,
+      name: item.name,
+      price: item.price,
       quantity: 1
-    }
+    };
 
     this.basketItems.forEach(x => {
-      if(x.name === item.name) {
+      if (x.name === item.name) {
         x.quantity += 1;
-        delete this.newCartItem
+        delete this.newCartItem; // может быть просто присваивать = null?
       }
     });
 
-    if(this.newCartItem) {
+    if (this.newCartItem) {
       this.basketItems.push(this.newCartItem);
-    }    
+    }
   }
 
 }
