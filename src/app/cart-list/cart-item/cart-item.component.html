@@ -1,0 +1,8 @@
+<div class="cart-item" appHighlight>
+    <p class="cart-property remove-button" (click)="removeItem()">&#10060;</p>
+    <p class="cart-property cart-tbl-row-photo"><img [src]="product.photo" alt="product image" class="cart-item-img"></p>
+    <p class="cart-property cart-tbl-row-name">{{product.name}}</p>
+    <p class="cart-property cart-tbl-row-size">{{product.size}}</p>
+    <p class="cart-property cart-tbl-row-qty"><button class="change-quantity" (click)="reduceItemQty()">-</button>{{product.quantity}}<button class="change-quantity" (click)="increaseItemQty()">+</button></p>        
+    <p class="cart-property cart-tbl-row-summ" appHighlight>{{product.price * product.quantity | currency}}</p>
+</div>

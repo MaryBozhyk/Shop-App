@@ -8,10 +8,11 @@ import { CartService } from '../../core/cart.service';
 })
 export class ButtonComponent {
   @Input() cartItem;
+  @Input() disable: boolean;
 
   constructor(private cartService: CartService) { }
 
-  onBuy():void {
+  onBuy(): void {
     console.log('You have bought item');
     this.cartService.addItemtoCart(this.cartItem);
   }

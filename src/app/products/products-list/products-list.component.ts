@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
-import { Product } from '../shared';
+import { Product } from '../../shared';
 
 @Component({
   selector: 'app-products-list',
@@ -16,8 +16,8 @@ export class ProductsListComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
-  trackByName(index: number, product: Product): string { 
-    return product.name; 
+  trackByName(index: number, product: Product): string {
+    return product.name;
   }
 
 }

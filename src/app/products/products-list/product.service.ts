@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Category, Product } from '../shared';
+import { Category, Product } from '../../shared';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class ProductService {
   products: Array<Product> = [
@@ -12,6 +12,7 @@ export class ProductService {
       price: 152.49,
       category: Category.Running,
       isAvailable: true,
+      quantity: [10, 5, 2],
       sizes: [38, 39, 41],
       color: 'Black',
       photo: 'assets/HOK947_1000_1.jpg'
@@ -23,6 +24,7 @@ export class ProductService {
       category: Category.Running,
       isAvailable: true,
       color: 'Grey',
+      quantity: [1, 4, 1],
       sizes: [35, 38, 41],
       photo: 'assets/UND5180_1000_4.jpg'
     },
@@ -32,6 +34,7 @@ export class ProductService {
       price: 117.06,
       category: Category.Outdor,
       isAvailable: true,
+      quantity: [8, 14, 1],
       sizes: [37, 38, 41],
       color: 'Grey',
       photo: 'assets/ADI13299_1000_1.jpg'
@@ -42,6 +45,7 @@ export class ProductService {
       price: 102.47,
       category: Category.Gym,
       isAvailable: true,
+      quantity: [1],
       sizes: [40],
       color: 'Black',
       photo: 'assets/UND5940_1000_1.jpg'
@@ -52,6 +56,7 @@ export class ProductService {
       price: 85.34,
       category: Category.Tennis,
       isAvailable: true,
+      quantity: [1],
       sizes: [35],
       color: 'Grey',
       photo: 'assets/ADI12222_1000_1.jpg'
@@ -65,7 +70,7 @@ export class ProductService {
       color: 'Black',
       photo: 'assets/ADI12827_1000_6.jpg'
     }
-  ]
+  ];
 
   constructor() { }
 

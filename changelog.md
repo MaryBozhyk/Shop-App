@@ -21,3 +21,28 @@ photo, name, price, color, sizes, description відображено в темп
 Також додано interface CartItem (shared/product.model.ts) для опису вигляду товару, що додається в карту.
 В AppComponent з застосуванням dependency injection отримано доступ до CartService(public, бо використовується в темплейті). З використанням структурної директиви *ngIf перевіємо чи наявні товари в масиві basketItems, якщо так то відображаємо CartListComponent, а в іншому випадку альтернативний блок #emptyCart.
 
+Task 2
+
+1. Розбито додаток на окремі модулі: AppModule, CartModule, ProductModule, SharedModule.
+
+2. Створення  ProductListComponent та ProductComponent реалізовано в контексті Task 1.
+
+3. Добавлено можливість додавати товар в корзину лише в тому випадку, якщо одраний розмір. В іншому випадку кнопка 'Buy' неактивна.
+
+4. Модифіковано CartService. Додано методи для збільшення/зменшення/видалення товару з корзини. Також додано до властивостей товарів катри розмір товару.
+
+5. Модифікаовано CartListComponent. Додано методи  getTotalQty, onRemove, onReduce, onIncrease для керування товарами в корзині.
+
+6-7. Створено СartItemComponent. Для комунікації з CartListComponent використано @Input() та @Output.
+
+9. Також з використано lifecycle hook методи ngAfterViewInit(), ngDoCheck(), ngOnInit().
+
+10. Використано ДОМ подію click.
+
+11.  доданов AppComponent елемент <h1 #appTitle></h1>. З використанням @ViewChild додано заголовок.
+
+12. Створено HighlightDirectivе з використанням @HostBinding, @HostListener, яка спрацьовує при ховері на ітем в корзині.
+
+13. Використано директиву ngClass для зміни стилю неактивної кнопки.
+
+14. Створено SizeButtonComponent, який відображає кнопку окремого розміру та комунікує з ProductComponent через @Input() та @Output. Окрім цього реалізовано комунікацію між цими компонентами з застосуванням @ViewChildren. Додано метод onChangeSize, який відслідкову щоб був вибраний лише один розмір, а також дізейблить кнопку 'Buy' у випадку, якщо не обрано жодного розміру.

@@ -1,13 +1,30 @@
-.cart-list {
-    border-collapse: collapse;
+.cart-item {
+    display: flex;
 }
-  
-.cart-list, .cart-item, .cart-property {
+
+.cart-property {
     border: 1px solid black;
-    padding: 3px;
+    padding: 7px 0;
     font-size: 12px;
 }
 
-.cart-item-img {
-    width: 30px;
+.cart-total-summ {
+    text-align: right;        
+    width: 120px;
+    padding-right: 5px;
+}
+
+.cart-total-qty {
+    text-align: center;    
+    width: 80px;
+}
+
+.cart-total {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.cart-total-lable {
+    padding: 7px 0 7px 10px;
+    width: calc(80% + 111px);
 }

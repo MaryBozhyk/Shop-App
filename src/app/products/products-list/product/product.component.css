@@ -51,12 +51,6 @@
     margin-bottom: 10px;
 }
 
-.item-size {
-    padding: 5px;
-    border: 1px rgba(0,0,0,0.75) solid;
-    margin-right: 5px;
-}
-
 .item-show-description {
     text-decoration: underline;
     margin-top: 20px;

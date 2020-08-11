@@ -1,15 +1,10 @@
 
 
-<table class="cart-list">
-    <tr class="cart-item" *ngFor="let product of cartProducts; index as i;">
-        <td class="cart-property cart-tbl-row-number">{{i + 1}}</td>
-        <td class="cart-property cart-tbl-row-photo"><img [src]="product.photo" alt="product image" class="cart-item-img"></td>
-        <td class="cart-property cart-tbl-row-name">{{product.name}}</td>
-        <td class="cart-property cart-tbl-row-qty">{{product.quantity}}</td>        
-        <td class="cart-property cart-tbl-row-summ">{{product.price * product.quantity | currency}}</td>
-    </tr>
-    <tr>
-        <td colspan="4">Total</td>
-        <td>{{totalSumm | currency}}</td>
-    </tr>
-</table>
+<section class="cart-list">
+    <app-cart-item *ngFor="let cartProduct of cartProducts;" [product]="cartProduct" (remove)="onRemove($event)" (minus)="onReduce($event)" (plus)="onIncrease($event)"></app-cart-item>
+    <div class="cart-item cart-total">
+        <p class="cart-property cart-total-lable" colspan="2">Total</p>
+        <p class="cart-property cart-total-qty">{{totalQty}}</p>
+        <p class="cart-property cart-total-summ">{{totalSumm | currency}}</p>
+    </div>
+</section>
