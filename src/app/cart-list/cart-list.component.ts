@@ -20,11 +20,13 @@ export class CartListComponent implements DoCheck {
     this.getTotalQty();
   }
 
+  // наверное, должен быть приватным
   getTotalSumm(): void {
     this.totalSumm = 0;
     this.cartService.basketItems.forEach(item => this.totalSumm += item.price * item.quantity);
   }
 
+  // наверное, должен быть приватным
   getTotalQty(): void {
     this.totalQty = this.cartService.basketItems.reduce((acc, item) => acc + item.quantity, 0);
   }
