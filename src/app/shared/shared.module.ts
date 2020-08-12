@@ -8,3 +8,4 @@ import { HighlightDirective } from './highlight.directive';
   exports: [HighlightDirective]
 })
 export class SharedModule { }
+// желательно контент этой папки разложить по папкам согласно типам
