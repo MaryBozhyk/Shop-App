@@ -4,16 +4,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GeneratorService {
-  private possibleCharacters: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  private possibleCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   constructor() { }
 
   generateCombination(stringLength: number) {
-    let randomCombination = "";
-  
+    let randomCombination = '';
+
     for (let i = 0; i <  stringLength; i++) {
       randomCombination += this.possibleCharacters.charAt(Math.floor(Math.random() * this.possibleCharacters.length));
-    }      
-  
+    }
+
     return randomCombination;
   }
 }

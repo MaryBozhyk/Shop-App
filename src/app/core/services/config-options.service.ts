@@ -15,7 +15,7 @@ export class ConfigOptionsService {
     if (this.configOptions.hasOwnProperty(key)) {
       return this.configOptions;
     } else {
-      return new Error('There is not such config!')
+      return new Error('There is not such config!');
     }
   }
 }
