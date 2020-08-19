@@ -1,5 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
-import { CartService } from '../core/cart.service';
+import { CartService } from './cart.service';
 import { CartItem } from '../shared';
 
 @Component({
@@ -16,17 +16,8 @@ export class CartListComponent implements DoCheck {
 
   ngDoCheck(): void {
     this.cartProducts = this.cartService.getCartList();
-    this.getTotalSumm();
-    this.getTotalQty();
-  }
-
-  getTotalSumm(): void {
-    this.totalSumm = 0;
-    this.cartService.basketItems.forEach(item => this.totalSumm += item.price * item.quantity);
-  }
-
-  getTotalQty(): void {
-    this.totalQty = this.cartService.basketItems.reduce((acc, item) => acc + item.quantity, 0);
+    this.totalSumm = this.cartService.totalSumm;
+    this.totalQty =  this.cartService.totalQuantity;
   }
 
   onRemove(item: CartItem): void {
@@ -39,5 +30,9 @@ export class CartListComponent implements DoCheck {
 
   onIncrease(item: CartItem): void {
     this.cartService.increaseItemQty(item);
+  }
+
+  onRemoveAll(): void {
+    this.cartService.removeAllProducts();
   }
 }

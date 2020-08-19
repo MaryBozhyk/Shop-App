@@ -28,3 +28,20 @@
     padding: 7px 0 7px 10px;
     width: calc(80% + 111px);
 }
+
+.cart-remove-btn {
+    padding: 10px 50px;
+    font-weight: bold;
+    border: none;
+    background-color: rgba(217, 30, 24, 1);
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.5);
+    display: block;
+    margin: 15px auto;
+}
+
+.cart-remove-btn:hover {
+    background-color: rgba(150, 40, 27, 1);
+    cursor: pointer;
+}

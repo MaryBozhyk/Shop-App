@@ -1,0 +1,9 @@
+.about-component__block {
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    cursor: pointer;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+}

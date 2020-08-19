@@ -1,5 +1,4 @@
-
-import { Category } from './category.enum';
+import { Category } from '../enums/category.enum';
 
 export interface Product {
     name: string;

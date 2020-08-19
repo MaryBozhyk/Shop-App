@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Product, CartItem } from '../shared';
+import { CartItem } from '../shared';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   basketItems: Array<CartItem> = [];
+  totalQuantity: number;
+  totalSumm: number;
 
   private newCartItem: CartItem;
 
   constructor() { }
 
   getCartList(): Array<CartItem> {
+    this._updateCartData();
     return this.basketItems;
   }
 
@@ -34,6 +37,8 @@ export class CartService {
     if (this.newCartItem) {
       this.basketItems.push(this.newCartItem);
     }
+
+    this._updateCartData();
   }
 
   reduceItemQty(item: CartItem): void {
@@ -46,6 +51,8 @@ export class CartService {
         this.removeItem(currentItem);
       }
     });
+
+    this._updateCartData();
   }
 
   increaseItemQty(item: CartItem): void {
@@ -54,10 +61,25 @@ export class CartService {
         currentItem.quantity += 1;
       }
     });
+
+    this._updateCartData();
   }
 
   removeItem(item: CartItem): void {
     this.basketItems = this.basketItems.filter(currentItem => currentItem !== item);
+
+    this._updateCartData();
+  }
+
+  removeAllProducts(): void {
+    this.basketItems.length = 0;
+    this._updateCartData();
+  }
+
+  private _updateCartData(): void {
+    this.totalSumm = 0;
+    this.totalQuantity = this.basketItems.reduce((acc, item) => acc + item.quantity, 0);
+    this.totalSumm = this.basketItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
   }
 
 }

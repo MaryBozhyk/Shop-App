@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { CartService } from './core/cart.service';
+import { CartService } from './cart-list';
 
 @Component({
   selector: 'app-root',

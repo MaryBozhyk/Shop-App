@@ -1,2 +1,2 @@
-export * from './category.enum';
-export * from './product.model';
+export * from './enums/category.enum';
+export * from './models/product.model';
