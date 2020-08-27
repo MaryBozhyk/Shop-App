@@ -12,6 +12,7 @@ export interface Product {
     photo: string;
 }
 
+// Я, думаю, лучше перенести в свой собственный модуль
 export interface CartItem {
     photo: string;
     name: string;
