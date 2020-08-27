@@ -77,7 +77,7 @@ export class CartService {
   }
 
   private _updateCartData(): void {
-    this.totalSumm = 0;
+    this.totalSumm = 0; // надо?
     this.totalQuantity = this.basketItems.reduce((acc, item) => acc + item.quantity, 0);
     this.totalSumm = this.basketItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
   }
