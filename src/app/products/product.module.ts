@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { FirstComponent } from './first/first.component';
 import { ProductsListComponent } from './products-list/products-list.component';
@@ -16,7 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     ButtonComponent,
     SizeButtonComponent
   ],
-  imports: [ CommonModule, SharedModule ],
+  imports: [ SharedModule ],
   exports: [
     FirstComponent,
     ProductsListComponent,

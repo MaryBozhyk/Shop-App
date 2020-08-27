@@ -4,6 +4,15 @@
     min-height: 100vh;
 }
 
+.shop-header {
+    display: flex;
+    justify-content: center;
+}
+
+.reload-time {
+    margin-left: auto;
+}
+
 .main-header {
     text-align: center;
     text-transform: uppercase;
@@ -14,6 +23,7 @@
     -moz-background-clip: text;
     background-clip: text;
     text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
+    margin: auto;
 }
 
 .main-block {

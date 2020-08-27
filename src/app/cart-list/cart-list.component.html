@@ -1,7 +1,15 @@
 
 
 <section class="cart-list">
-    <app-cart-item *ngFor="let cartProduct of cartProducts;" [product]="cartProduct" (remove)="onRemove($event)" (minus)="onReduce($event)" (plus)="onIncrease($event)"></app-cart-item>
+    <div class="form-group">
+        <select class="form-control" name="sorting" [(ngModel)]="sortOption">
+            <option value="undefined" disabled hidden>Sort by...</option>
+            <option *ngFor="let sortingProperty of sortingProperties"  [value]="sortingProperty" [selected]="sortOption == sortingProperty">{{sortingProperty | titlecase}}</option>
+        </select>
+        <img src="../../assets/up-arrow.svg" alt="" class="sorting-arrrows" *ngIf="!sortOrder" (click)="sortOrder = !sortOrder">
+        <img src="../../assets/down-arrow.svg" alt="" class="sorting-arrrows" *ngIf="sortOrder" (click)="sortOrder = !sortOrder">
+    </div>
+    <app-cart-item *ngFor="let cartProduct of (cartProducts | orderBy : sortOption : sortOrder)" [product]="cartProduct" (remove)="onRemove($event)" (minus)="onReduce($event)" (plus)="onIncrease($event)"></app-cart-item>
     <div class="cart-item cart-total">
         <p class="cart-property cart-total-lable" colspan="2">Total</p>
         <p class="cart-property cart-total-qty">{{totalQty}}</p>

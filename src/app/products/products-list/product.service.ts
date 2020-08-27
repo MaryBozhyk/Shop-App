@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Category, Product } from '../../shared';
+
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'any'
@@ -74,7 +77,7 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts(): Array<Product> {
-    return this.products;
+  getProducts(): Observable<Product[]> {
+    return of(this.products);
   }
 }

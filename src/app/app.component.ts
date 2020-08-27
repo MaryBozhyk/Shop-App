@@ -8,6 +8,7 @@ import { CartService } from './cart-list';
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('appTitle') title: ElementRef;
+  today: number = Date.now();
 
   constructor(public cartServise: CartService) {}
 

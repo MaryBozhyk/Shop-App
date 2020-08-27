@@ -11,6 +11,9 @@ export class CartListComponent implements DoCheck {
   cartProducts: Array<CartItem>;
   totalSumm: number;
   totalQty: number;
+  sortOption: string;
+  sortOrder = false;
+  sortingProperties: string[] = ['name', 'price', 'quantity'];
 
   constructor(private cartService: CartService) { }
 

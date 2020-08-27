@@ -11,11 +11,3 @@ export interface Product {
     color: string;
     photo: string;
 }
-
-export interface CartItem {
-    photo: string;
-    name: string;
-    price: number;
-    size: number;
-    quantity: number;
-}
