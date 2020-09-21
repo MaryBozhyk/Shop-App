@@ -1,5 +1,9 @@
 import { Component, DoCheck } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { CartService } from './cart.service';
+import { OrdersService } from '../orders';
+import { ProductService } from '../products/services/product.service';
 import { CartItem } from '../shared';
 
 @Component({
@@ -15,7 +19,12 @@ export class CartListComponent implements DoCheck {
   sortOrder = false;
   sortingProperties: string[] = ['name', 'price', 'quantity'];
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private ordersService: OrdersService,
+    private productService: ProductService,
+    private router: Router
+  ) { }
 
   ngDoCheck(): void {
     this.cartProducts = this.cartService.getCartList();
@@ -37,5 +46,12 @@ export class CartListComponent implements DoCheck {
 
   onRemoveAll(): void {
     this.cartService.removeAllProducts();
+  }
+
+  onMakeOrder(): void {
+    this.ordersService.setOrder(this.cartProducts, this.totalSumm, this.totalQty);
+    this.productService.updateProducts(this.cartProducts);
+    this.onRemoveAll();
+    this.router.navigate(['/orders']);
   }
 }

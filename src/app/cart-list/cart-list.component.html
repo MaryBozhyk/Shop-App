@@ -1,6 +1,6 @@
 
-
-<section class="cart-list">
+<h2 class="basket-title"> <img src="../assets/basket.png" alt="basket icon" class="basket-icon"> Basket </h2>
+<section class="cart-list" *ngIf="cartProducts.length; else emptyCart">
     <div class="form-group">
         <select class="form-control" name="sorting" [(ngModel)]="sortOption">
             <option value="undefined" disabled hidden>Sort by...</option>
@@ -15,5 +15,14 @@
         <p class="cart-property cart-total-qty">{{totalQty}}</p>
         <p class="cart-property cart-total-summ">{{totalSumm | currency}}</p>
     </div>
+    <div class="buttons-container">
+        <button class="cart-btn" (click)="onRemoveAll()">Clear basket</button>
+        <app-main-button title="Continue shopping"></app-main-button>
+        <button class="cart-btn" (click)="onMakeOrder()">Make order</button>
+    </div>
 </section>
-<button class="cart-remove-btn" (click)="onRemoveAll()">Clear basket</button>
+<ng-template #emptyCart>
+    <p class="empty-cart">The basket is empty.</p>
+    <app-main-button></app-main-button>
+</ng-template>
+<app-back-button></app-back-button>

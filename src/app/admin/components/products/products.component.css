@@ -1,0 +1,11 @@
+:host {
+    padding: 0 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.edited {
+    border: 2px solid red;
+}

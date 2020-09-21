@@ -5,8 +5,47 @@
 }
 
 .shop-header {
+    min-height: 150px;
+    background-image: linear-gradient( 109.6deg, rgba(0,0,0,1) 11.2%, rgba(99,223,197,0.03) 100.2% );
+    margin-bottom: 10px;
+    box-shadow: 11px 3px 20px -2px rgba(0,0,0,0.82);
+    position: relative;
+}
+
+.shop-title {
     display: flex;
     justify-content: center;
+}
+
+.shop-navigation {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    background-color: #ffffff26;
+    margin-top: 20px;
+}
+
+.shop-navigation__btn {
+    padding: 0 20px;
+    background-color: #a7a1a13b;
+    color: white;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: none;
+    margin-right: 3px;
+}
+
+.shop-navigation__btn:hover {
+    border: none;
+    outline: none;
+    background-color: #6e68683b;
+    cursor: pointer;
+}
+
+.active {
+    border: none;
+    outline: none;
+    background-color: #c0bfbf;
 }
 
 .reload-time {
@@ -18,42 +57,51 @@
     text-transform: uppercase;
     padding-top: 20px;
     color: transparent;
-    background: #666666;
+    background: rgba(150, 40, 27, 1);
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
-    text-shadow: 0px 3px 3px rgba(255,255,255,0.5);
-    margin: auto;
+    text-shadow: 0px 3px 3px rgba(255,255,255,0.1);
+    margin: 10px auto;
 }
 
-.main-block {
+.basket-block {
+    position: absolute;
+    right: 50px;
+    bottom: 55px;
+    cursor: pointer;
     display: flex;
-    flex-wrap: wrap;
-}
-
-.cart {
-    width: calc(40% - 20px);
-    min-height: 335px;
-    align-self: start;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px rgba(0,0,0,0.75) solid;
-    box-shadow: 11px 3px 20px -2px rgba(0,0,0,0.82);
-    overflow: hidden;
-    background-color: #ffff;
+    width: 50px;
 }
 
 .basket-icon {
     width: 30px;
+    height: auto;
 }
 
-.basket-title {
-    margin-bottom: 20px;
+.basket-items {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    color: white;
+    background-color: red;
     text-align: center;
-}
-
-.empty-cart {
-    color: rgba(217, 30, 24, 1);
+    font-size: 11px;
+    line-height: 18px;
     font-weight: bold;
-    text-align: center;
+}
+
+.login-icon {
+    width: 30px;
+    height: auto;
+    position: absolute;
+    right: 10px;
+    bottom: 55px;
+    cursor: pointer;
+}
+
+.login-icon:focus,
+.basket-block:focus {
+    outline: none;
 }

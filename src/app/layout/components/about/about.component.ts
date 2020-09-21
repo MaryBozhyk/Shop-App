@@ -1,4 +1,5 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
+
 import { ConfigOptionsService, ConstanService, GeneratorService, LocalStorageService, GeneratorServiceN, GeneratorFactory} from '../../../core';
 import { Config } from '../../../core';
 
@@ -25,7 +26,8 @@ export class AboutComponent implements OnInit {
     @Optional() private localStorageService: LocalStorageService,
     @Optional() private configOptionsService: ConfigOptionsService,
     @Optional() private constanService: ConstanService,
-    @Inject(GeneratorServiceN) private Generator: string) { }
+    @Inject(GeneratorServiceN) private Generator: string
+    ) { }
 
   ngOnInit(): void {
     // LocalStorageService testing
@@ -45,5 +47,4 @@ export class AboutComponent implements OnInit {
     // GeneratorService testing
     console.log('GeneratorService result: ', this.Generator);
   }
-
 }

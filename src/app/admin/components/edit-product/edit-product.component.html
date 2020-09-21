@@ -1,0 +1,26 @@
+<h2 class="edit-title"> <img src="../assets/edit.svg" alt="edit icon" class="edit-icon"> Edit</h2>
+
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <div class="form-field form-raw">
+        <label for="name" class="form-field-lable">Name:</label>
+        <input id="name" formControlName="name" class="form-value form-field-name"/> 
+    </div>
+    <div class="form-field form-raw">
+        <label for="price" class="form-field-lable">Price:</label>
+        <input type="text" id="price" formControlName="price" class="form-value form-field-price"/> $
+    </div>
+    <div formArrayName="sizes" class="form-field form-raw">
+        <div *ngFor="let size of product.sizes; let i=index" class="form-field">
+            <label *ngIf="i == 0" class="form-field-lable">Sizes:</label>          
+            <input type="text" [formControlName]="i" class="form-value form-field-small">
+        </div>
+    </div>
+    <div formArrayName="quantity" class="form-field form-raw">
+        <div *ngFor="let quantity of product.quantity; let i=index" class="form-field">
+            <label *ngIf="i == 0" class="form-field-lable">Quantity:</label>          
+            <input type="text" [formControlName]="i" class="form-value form-field-small">
+        </div>
+    </div>
+    <button type="button" (click)="onGoBack()" class="admin-button">Back</button>
+    <button type="submit" [disabled]="!itemForm.valid" class="admin-button">Submit</button>
+</form>

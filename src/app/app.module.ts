@@ -4,20 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { SharedModule } from './shared/shared.module';
-import { CartModule } from './cart-list/cart.module';
 import { ProductModule } from './products/product.module';
-import { AboutComponent } from './layout/components/about/about.component';
+import { LayoutModule } from './layout/layout.module';
+
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AboutComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     SharedModule,
-    CartModule,
-    ProductModule
+    ProductModule,
+    LayoutModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,46 @@
+:host {
+    display: flex;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px rgba(0,0,0,0.75) solid;
+    box-shadow: 11px 3px 20px -2px rgba(0,0,0,0.82);
+    overflow: hidden;
+    background-color: #ffff;
+    position: relative;
+}
+
+.item-photo {
+    width: 40%;
+    align-self: center;
+}
+
+.item-details {
+    margin-left: 20px;
+}
+
+.item-name {
+    margin-bottom: 15px;
+}
+
+.item-color {
+    margin-bottom: 10px;
+}
+
+.item-price {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.item-description {
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.best-seller {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    height: 100px;
+}

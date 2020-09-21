@@ -1,0 +1,24 @@
+.admin-navigation__btn{
+    padding: 10px 30px;
+    background-color: darkgray;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.admin-navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin: 20px auto;
+}
+
+.admin-navigation__btn:hover{
+    cursor: pointer;
+    background-color: #767272;
+}
+
+.active {
+    background-color: #a39494;
+}

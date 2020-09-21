@@ -1,0 +1,20 @@
+:host {
+    position: absolute;
+    cursor: pointer; 
+    top: -8px;
+    left: -17px;
+}
+
+:host:hover {
+    top: -10px;
+    left: -21px;
+}
+
+
+.back-arrow {
+    width: 40px;    
+}
+
+.back-arrow:hover {
+    width: 43px;
+}

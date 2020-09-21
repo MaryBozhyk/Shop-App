@@ -64,3 +64,17 @@ Task 4
 3-5. Створено OrderByPipe, яка приймає 2 параметри (shared/pipes/order-by.pipe.ts). Зареєстровано її в  SharedModule і експортовано. Застосовано в cart-list.component.html для сортування списку товарів по ціні, кількості, назві а також в зростаючому і спадному порядку.
 
 6. Експортовано із  SharedModule модулі CommonModule, FormsModule та видалено їх з інших модулів.
+
+
+Task 5
+
+1. - 4. Створено /main, /about, /cart, /orders сторінки. З /main при кліку на товар ми перезодимо на /product/:productID.
+Для /cart і /orders застосовано лейзі-лоадінг і прелоадінг.
+
+5. Створено
+/admin + canActivateGuard
+/admin/product/add + CanDeactivateGuard
+/admin/product/edit:productID + resolve guard + CanDeactivateGuard
+/admin/orders
+
+6. Частково застосовано реактивні форми та валідацію required, а також динамічно створені поля.

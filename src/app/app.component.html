@@ -1,17 +1,18 @@
 <header class="shop-header">
-  <h1 class="main-header" #appTitle appChangeColor="rgba(150, 40, 27, 1)"></h1>
-  <p class="reload-time">{{today | date:'short'}}</p>
+  <div class="shop-title">
+    <h1 class="main-header" #appTitle></h1>
+  </div>
+  <div class="shop-navigation">
+    <button class="shop-navigation__btn about" routerLink="./about" routerLinkActive="active">About us</button>
+    <button class="shop-navigation__btn main" routerLink="./home" routerLinkActive="active">Main page</button>
+    <button class="shop-navigation__btn admin" routerLink="./admin" routerLinkActive="active">Admin</button>
+    <button class="shop-navigation__btn cart" routerLink="./cart" routerLinkActive="active">Cart</button>
+    <button class="shop-navigation__btn orders" routerLink="./orders" routerLinkActive="active">Orders</button>
+  </div>
+  <div class="basket-block" routerLink="./cart">
+    <img src="../assets/basket.png" alt="basket icon" class="basket-icon">
+    <div class="basket-items" *ngIf="cartServise.basketItems.length">{{cartServise.basketItems.length}}</div>
+  </div>
+  <img src="../assets/login_icon.svg" alt="login icon" class="login-icon" routerLink="./login">
 </header>
-<main class="main-block">
-  <app-first></app-first>
-  <app-products-list></app-products-list>
-  <section class="cart">
-    <h2 class="basket-title"> <img src="../assets/basket.png" alt="basket icon" class="basket-icon"> Basket </h2>
-    <app-cart-list *ngIf="cartServise.basketItems.length; else emptyCart"></app-cart-list>
-    <ng-template #emptyCart>
-      <p class="empty-cart">The basket is empty.</p>
-      <p class="empty-cart">Please add item to start shopping.</p>
-    </ng-template>
-  </section>
-</main>
-<app-about></app-about>
+<router-outlet></router-outlet>

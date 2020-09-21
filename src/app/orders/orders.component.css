@@ -1,0 +1,65 @@
+:host {
+    width: 90%;
+    display: block;
+    margin: auto;
+    background-color: #ffffffd9;
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 15px 21px 48px -14px;
+    position: relative;
+    min-height: 335px;
+}
+
+.orders-icon {
+    width: 30px;
+}
+
+.orders-title {
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.order-main-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.items-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.total-values {
+    width: 150px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-row {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.center {
+    text-align: center;
+}
+
+.end {
+    text-align: end;
+}
+
+.order-info {
+    margin-bottom: 30px;
+}
+
+.without-orders {
+    color: rgba(217, 30, 24, 1);
+    font-weight: bold;
+    text-align: center;
+}

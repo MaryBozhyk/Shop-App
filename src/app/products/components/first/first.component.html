@@ -1,0 +1,9 @@
+<img [src]="bestSeller.photo" alt="item photo" class="item-photo">
+<section class="item-details">
+    <h2 class="item-name">{{bestSeller.name | uppercase}}</h2>
+    <p class="item-price">{{bestSeller.price | currency}}</p>
+    <p class="item-color"><b>Color:</b> {{bestSeller.color}}</p>
+    <p class="item-description">{{bestSeller.description}}</p>
+    <app-button (click)="onBuy()"></app-button>
+</section>
+<img src="../../assets/Best-seller-stamp.svg" alt="" class="best-seller">

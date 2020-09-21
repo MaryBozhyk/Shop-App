@@ -1,0 +1,8 @@
+<h2 class="login-title"> <img src="../assets/login_icon.svg" alt="edit icon" class="login-icon"> Login</h2>
+
+<p>
+    <button class="btn-login" (click)="onLogout()" *ngIf="authService.isLoggedIn; else loginBtn">Logout</button>
+    <ng-template #loginBtn>
+      <button class="btn-login" (click)="onLogin()">Login</button>
+    </ng-template>
+</p>

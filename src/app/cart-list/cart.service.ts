@@ -20,6 +20,7 @@ export class CartService {
 
   addItemtoCart(data: any): void {
     this.newCartItem = {
+      id: data.item.id,
       photo: data.item.photo,
       name: data.item.name,
       price: data.item.price,

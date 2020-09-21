@@ -1,0 +1,5 @@
+<section class="item-details">
+    <img [src]="item.photo || '../assets/picture.svg'" alt="item photo" class="item-photo">
+    <h5 class="item-name">{{item.name | uppercase}}</h5>
+</section>
+<button (click)="onEdit()" class="product-edit-button">Edit</button>

@@ -1,0 +1,45 @@
+<h2 class="add-title"> <img src="../assets/add-to-list.svg" alt="add icon" class="add-icon"> Add new item</h2>
+
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-field form-raw">
+        <label for="name" class="form-field-lable">Name:</label>
+        <input id="name" formControlName="name" class="form-field-name form-value" placeholder="Add name..."/> 
+    </div>
+    <div class="form-field form-raw">
+        <label for="price" class="form-field-lable">Price:</label>
+        <input type="text" id="price" formControlName="price" class="form-field-price form-value" placeholder="Add price..."/> $
+    </div>
+    <div class="form-field form-raw">
+        <div formArrayName="sizes"  *ngFor="let size of sizes.controls; let i = index; let first = first; let last = last" class="form-field sizes-container">
+            <label *ngIf="i == 0" class="form-field-lable">Sizes:</label>          
+            <input type="text" [formControlName]="i" class="form-value form-field-small" placeholder="...">
+            <img src="../assets/add.svg" alt="" *ngIf="last" (click)="onAddSize()" class="add-button">
+        </div>
+    </div>
+    <div class="form-field form-raw">
+        <div formArrayName="quantity"  *ngFor="let size of quantity.controls; let i = index; let first = first" class="form-field">
+            <label *ngIf="i == 0" class="form-field-lable">Quantity:</label>          
+            <input type="text" [formControlName]="i" class="form-value form-field-small" placeholder="...">
+        </div>
+    </div>
+    <div class="form-field form-raw">
+        <label for="color" class="form-field-lable">Color:</label>
+        <input type="text" id="color" formControlName="color" class="form-field-price form-value" placeholder="Add color..."/>
+    </div>
+    <div class="form-field form-raw">
+        <label for="category" class="form-field-lable">Category:</label>
+        <select  class="form-value" id="category" formControlName="category">
+            <option *ngFor="let key of keys" [value]="key" [label]="categories[key]"></option>
+        </select>
+    </div>   
+    <div class="form-field form-raw">
+        <label for="photo" class="form-field-lable">Select image:</label>
+        <input type="file" id="photo" formControlName="photo" accept="image/*" placeholder="Add image..." class="form-value">
+    </div>
+    <div class="form-field form-raw">
+        <label for="description" class="form-field-lable">Description:</label>
+        <textarea type="file" id="description" formControlName="description" placeholder="Add description..." class="form-value form-field-name form-field-description"></textarea>
+    </div>  
+    <button type="button" routerLink="/admin" class="admin-button">Back</button>
+    <button type="submit" [disabled]="!addForm.valid" class="admin-button">Submit</button>
+</form>

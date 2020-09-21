@@ -1,0 +1,9 @@
+<h3 class="item-name">{{item.name | uppercase}}</h3>
+<section class="item-details" [ngClass]="{'item-not-available': !item.isAvailable}"> 
+    <img [src]="item.photo" alt="item photo" class="item-photo">
+    <article class="item-info">
+        <p class="item-price"><b>Price:</b> {{item.price | currency}}</p>
+        <p class="item-color"><b>Color:</b> {{item.color}}</p>
+    </article>    
+</section>
+<app-button (click)="onBuy()" class="product-buy-button"></app-button>

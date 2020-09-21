@@ -1,25 +1,29 @@
 import { NgModule } from '@angular/core';
 
-import { FirstComponent } from './first/first.component';
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductComponent } from './products-list/product/product.component';
-import { ButtonComponent } from './button/button.component';
-import { SizeButtonComponent } from './size-button/size-button.component';
+import {
+  FirstComponent,
+  ProductsListComponent,
+  ProductComponent,
+  ButtonComponent,
+  SizeButtonComponent,
+  ProductPageComponent
+} from './components';
+
 import { SharedModule } from '../shared/shared.module';
+import { ProductsRoutingModule } from './products-routing.module';
 
 @NgModule({
   declarations: [
     FirstComponent,
-    ProductsListComponent,
     ProductComponent,
     ButtonComponent,
-    SizeButtonComponent
-  ],
-  imports: [ SharedModule ],
-  exports: [
-    FirstComponent,
+    SizeButtonComponent,
     ProductsListComponent,
-    ProductComponent
+    ProductPageComponent
+  ],
+  imports: [
+    SharedModule,
+    ProductsRoutingModule
   ]
 })
 export class ProductModule { }
