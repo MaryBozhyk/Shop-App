@@ -11,7 +11,7 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class AppSettingsService {
-  key: string = "user_Data";
+  key = 'user_Data';
   defaultSettings: Config = {
     login: 'user',
     pass: 'user'
@@ -23,7 +23,7 @@ export class AppSettingsService {
   ) { }
 
   uploadConfigInfo() {
-    let dataFromLocalStorage =  this.localStorageService.getItem(this.key);
+    const dataFromLocalStorage =  this.localStorageService.getItem(this.key);
     if (dataFromLocalStorage) {
       return dataFromLocalStorage;
     } else {
@@ -37,7 +37,7 @@ export class AppSettingsService {
           this.localStorageService.setItem(this.key, this.defaultSettings);
           return of({ error: true, message: err.message });
         })
-      )
+      );
     }
 
   }
