@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router, UrlTree } from '@angular/router';
 
 import { Category, Product } from 'src/app/shared';
-import { ProductService } from 'src/app/products/services/product.service';
+import { HttpProductService } from 'src/app/products';
 import { CanComponentDeactivate, DialogService } from 'src/app/core';
 
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate {
   }
 
   constructor(
-    private productService: ProductService,
+    private httpProductService: HttpProductService,
     private dialogService: DialogService,
     private router: Router,
     private fb: FormBuilder
@@ -46,13 +46,17 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate {
   }
 
   onSubmit() {
-    this.product = {
-      id: this.productService.products.length.toString(),
-      ...this.addForm.value,
-      isAvailable: this.quantity.value.some(value => value > 0)
-    };
-    this.productService.addProduct(this.product);
-    this.router.navigate(['/admin'], { queryParams: { id: this.product.id } });
+    this.httpProductService.getAllProducts()
+    .then(products => {
+      this.product = {
+        id: +products[products.length - 1].id + 1,
+        ...this.addForm.value,
+        isAvailable: this.quantity.value.some(value => value > 0)
+      };
+    })
+    .then(() => this.httpProductService.addProduct(this.product))
+    .then(() => this.router.navigate(['/admin'], { queryParams: { id: this.product.id }}))
+    .catch(err => console.error(err));
   }
 
   canDeactivate():
@@ -84,5 +88,4 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate {
       description: ['', Validators.required]
     });
   }
-
 }

@@ -1,4 +1,4 @@
-<app-first [bestSeller]="bestSeller"></app-first>
+<app-first [bestSeller]="bestSeller" *ngIf="bestSeller"></app-first>
 <div class="products-container">
-    <app-product *ngFor="let product of (products | async); trackBy: trackByName" [item]="product"></app-product>
+    <app-product *ngFor="let product of (products | async | slice :1); trackBy: trackByName" [item]="product"></app-product>
 </div>

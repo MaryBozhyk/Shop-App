@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Product } from 'src/app/shared';
-import { ProductService } from '../../../products/services/product.service';
+import { HttpProductService } from 'src/app/products';
 
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -12,17 +12,17 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  products: Observable<Product[]>;
+  products: Promise<Product[]>;
   sub: Subscription;
   editedItemId: number;
 
   constructor(
-    private productService: ProductService,
+    private httpProductService: HttpProductService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getAllProducts();
+    this.products = this.httpProductService.getAllProducts();
     this.sub = this.route
       .queryParams
       .subscribe(params => {

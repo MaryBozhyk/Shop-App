@@ -1,6 +1,6 @@
 <h2 class="edit-title"> <img src="../assets/edit.svg" alt="edit icon" class="edit-icon"> Edit</h2>
 
-<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" *ngIf="product">
     <div class="form-field form-raw">
         <label for="name" class="form-field-lable">Name:</label>
         <input id="name" formControlName="name" class="form-value form-field-name"/> 
@@ -23,4 +23,5 @@
     </div>
     <button type="button" (click)="onGoBack()" class="admin-button">Back</button>
     <button type="submit" [disabled]="!itemForm.valid" class="admin-button">Submit</button>
+    <button type="button" (click)="onDeleteItem()" class="admin-button">Delete</button>
 </form>

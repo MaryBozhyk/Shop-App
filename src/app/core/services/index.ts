@@ -6,3 +6,4 @@ export * from './generator.factory';
 
 export * from './dialog.service';
 export * from './auth.service';
+export * from './app-settings.service';

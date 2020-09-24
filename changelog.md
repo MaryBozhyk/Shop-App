@@ -78,3 +78,14 @@ Task 5
 /admin/orders
 
 6. Частково застосовано реактивні форми та валідацію required, а також динамічно створені поля.
+
+
+Task 6
+
+1. - 2. Реалізовано бекенд за допомогою json-server та замінено вміст комнди npm start;
+
+3. - 4. Створено HttpProductObservableService та HttpProductService для роботи з HttpClient та реалізації методів по схемі Observable та Promise відповідною 
+ 
+5. Реализовано TimingInterceptor.
+
+6. Реализовано сервіс AppSettings.

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Config } from './../models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LocalStorageService {
   constructor() { }
 
   setItem(key: string, value: Config | string): void {
-    window.localStorage.setItem(key, JSON.stringify(value));
+    return window.localStorage.setItem(key, JSON.stringify(value));
   }
 
   getItem(key: string): string {
@@ -14,6 +16,6 @@ export class LocalStorageService {
   }
 
   removeItem(key: string): void {
-    window.localStorage.removeItem(key);
+    return window.localStorage.removeItem(key);
   }
 }

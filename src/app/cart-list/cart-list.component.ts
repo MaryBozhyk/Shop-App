@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 import { CartService } from './cart.service';
 import { OrdersService } from '../orders';
-import { ProductService } from '../products/services/product.service';
-import { CartItem } from '../shared';
+import { HttpProductService, HttpProductObservableService } from '../products/services';
+import { CartItem, Product } from '../shared';
 
 @Component({
   selector: 'app-cart-list',
@@ -18,11 +18,13 @@ export class CartListComponent implements DoCheck {
   sortOption: string;
   sortOrder = false;
   sortingProperties: string[] = ['name', 'price', 'quantity'];
+  stockProducts: Product[];
 
   constructor(
     private cartService: CartService,
     private ordersService: OrdersService,
-    private productService: ProductService,
+    private httpProductService: HttpProductService,
+    private httpProductObservableService: HttpProductObservableService,
     private router: Router
   ) { }
 
@@ -50,8 +52,27 @@ export class CartListComponent implements DoCheck {
 
   onMakeOrder(): void {
     this.ordersService.setOrder(this.cartProducts, this.totalSumm, this.totalQty);
-    this.productService.updateProducts(this.cartProducts);
-    this.onRemoveAll();
-    this.router.navigate(['/orders']);
+    this.updateProductsAndNavigate(this.cartProducts);
+  }
+
+  private updateProductsAndNavigate(cartItems: CartItem[]) {
+    this.httpProductService.getAllProducts()
+    .then((products) => {
+      this.stockProducts = products;
+
+      cartItems.forEach(item => {
+        this.stockProducts
+        .filter(product => product.id === item.id)
+        .map(product => {
+          product.quantity[product.sizes.indexOf(item.size)] -= item.quantity;
+          this.httpProductObservableService.updateProduct(product)
+          .subscribe((err) => console.error(err));
+        });
+      });
+
+      this.onRemoveAll();
+      this.router.navigate(['/orders']);
+    })
+    .catch((err) => console.error(err));
   }
 }

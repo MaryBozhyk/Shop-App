@@ -2,7 +2,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Product } from '../../../shared';
-import { ProductService } from '../../services/product.service';
+import { HttpProductObservableService } from '../../services';
 
 import { switchMap } from 'rxjs/operators';
 import { SizeButtonComponent } from '../size-button/size-button.component';
@@ -21,7 +21,7 @@ export class ProductPageComponent implements OnInit {
   product: Product;
 
   constructor(
-    private productService: ProductService,
+    private httpProductObservableService: HttpProductObservableService,
     private route: ActivatedRoute
   ) {}
 
@@ -29,13 +29,13 @@ export class ProductPageComponent implements OnInit {
 
     const observer = {
       next: (product: Product) => (this.product = { ...product }),
-      error: (err: any) => console.log(err)
+      error: (err: any) => console.error(err)
     };
 
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
-          return this.productService.getProduct(params.get('productID'));
+          return this.httpProductObservableService.getProduct(+params.get('productID'));
         }))
       .subscribe(observer);
   }

@@ -37,7 +37,7 @@ export class LoginComponent implements OnDestroy {
           this.router.navigate([redirect], navigationExtras);
         }
       },
-      error: (err: any) => console.log(err)
+      error: (err: any) => console.error(err)
     };
     this.authService
       .login()

@@ -1,19 +1,21 @@
-<h1 class="item-name">{{product.name | uppercase}}</h1>
-<img [src]="product.photo" alt="item photo" class="item-photo">
-<article class="item-info">
-    <p class="item-price"><b>Price:</b> {{product.price | currency}}</p>
-    <p class="item-color"><b>Color:</b> {{product.color}}</p>
-    <ng-container *ngIf="product.isAvailable; else noAvailable">
-        <h4>Sizes:</h4>
-        <ul class="sizes-block" >
-            <app-size-button *ngFor="let size of product.sizes" [itemSize]="size" (chooseSize)="onChangeSize($event)" #sizeButton></app-size-button>
-        </ul>
-        <app-button [cartItem]="{item: product, size: itemSize}" [disable]="disableButton"></app-button>
-        <div class="choose-sixe-text" *ngIf="disableButton">Please, choose size.</div>
-    </ng-container>
-    <ng-template #noAvailable>
-        <p class="item-out-of-stock">At the present moment is not available</p>
-    </ng-template>
-</article>
-<p class="item-description">{{product.description}}</p>
+<ng-container *ngIf="product">
+    <h1 class="item-name">{{product.name | uppercase}}</h1>
+    <img [src]="product.photo" alt="item photo" class="item-photo">
+    <article class="item-info">
+        <p class="item-price"><b>Price:</b> {{product.price | currency}}</p>
+        <p class="item-color"><b>Color:</b> {{product.color}}</p>
+        <ng-container *ngIf="product.isAvailable; else noAvailable">
+            <h4>Sizes:</h4>
+            <ul class="sizes-block" >
+                <app-size-button *ngFor="let size of product.sizes" [itemSize]="size" (chooseSize)="onChangeSize($event)" #sizeButton></app-size-button>
+            </ul>
+            <app-button [cartItem]="{item: product, size: itemSize}" [disable]="disableButton"></app-button>
+            <div class="choose-sixe-text" *ngIf="disableButton">Please, choose size.</div>
+        </ng-container>
+        <ng-template #noAvailable>
+            <p class="item-out-of-stock">At the present moment is not available</p>
+        </ng-template>
+    </article>
+    <p class="item-description">{{product.description}}</p>
+</ng-container>
 <app-back-button></app-back-button>

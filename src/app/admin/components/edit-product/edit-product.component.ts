@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router, UrlTree } from '@angular/router';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ProductService } from 'src/app/products/services/product.service';
+import { HttpProductObservableService, HttpProductService } from 'src/app/products';
 import { Product } from 'src/app/shared';
 import { DialogService, CanComponentDeactivate } from 'src/app/core';
 
-import { switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
 
 
 @Component({
@@ -15,10 +15,12 @@ import { Observable } from 'rxjs';
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.css']
 })
-export class EditProductComponent implements OnInit, CanComponentDeactivate {
+export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   product: Product;
   itemForm: FormGroup;
   productCopy: Product;
+
+  private unsubscribe: Subject<void> = new Subject();
 
   get name(): AbstractControl {
     return this.itemForm.get('name');
@@ -37,7 +39,8 @@ export class EditProductComponent implements OnInit, CanComponentDeactivate {
   }
 
   constructor(
-    private productService: ProductService,
+    private httpProductObservableService: HttpProductObservableService,
+    private httpProductService: HttpProductService,
     private dialogService: DialogService,
     private route: ActivatedRoute,
     private router: Router,
@@ -47,35 +50,51 @@ export class EditProductComponent implements OnInit, CanComponentDeactivate {
 
   ngOnInit(): void {
     const observer = {
-      next: (product: Product) => (this.product = { ...product }),
-      error: (err: any) => console.log(err)
+      next: (product: Product) => {
+        this.product = { ...product };
+        this.buildForm();
+        this.setFormValues();
+        this.productCopy = {...this.product};
+      },
+      error: (err: any) => console.error(err)
     };
 
     this.route.paramMap
       .pipe(
+        takeUntil(this.unsubscribe),
         switchMap((params: ParamMap) => {
-          return this.productService.getProduct(params.get('itemID'));
-        }))
-      .subscribe(observer);
+          return params.get('itemID')
+            ? this.httpProductObservableService.getProduct(+params.get('itemID'))
+            : of(null);
+        })
+      ).subscribe(observer);
+  }
 
-    this.buildForm();
-
-    this.product.sizes.forEach(size => {
-      this.sizes.push(new FormControl(size, Validators.required));
-    });
-
-    this.product.quantity.forEach(quantity => {
-      this.quantity.push(new FormControl(quantity, Validators.required));
-    });
-
-    this.productCopy = {...this.product};
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   onSubmit() {
+    const observer = {
+      next: () => {
+        this.router.navigate(['/admin'], { queryParams: { id: this.product.id } });
+        this.product = {...this.productCopy};
+      },
+      error: (err: any) => console.error(err)
+    };
+
     this.getFormValues();
-    this.productService.updateProduct(this.productCopy);
-    this.router.navigate(['/admin'], { queryParams: { id: this.product.id } });
-    this.product = {...this.productCopy};
+    this.httpProductObservableService.updateProduct(this.productCopy)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(observer);
+  }
+
+  onDeleteItem() {
+    this.httpProductService
+      .deleteProduct(this.product)
+      .then(() => (this.router.navigate(['/admin'])))
+      .catch(err => console.error(err));
   }
 
   onGoBack() {
@@ -113,10 +132,20 @@ export class EditProductComponent implements OnInit, CanComponentDeactivate {
 
   private buildForm() {
     this.itemForm = this.fb.group({
-      name: [this.product.name, Validators.required],
-      price: [this.product.price, Validators.required],
+      name: [this.product?.name, Validators.required],
+      price: [this.product?.price, Validators.required],
       sizes: this.fb.array([]),
       quantity: this.fb.array([])
+    });
+  }
+
+  private setFormValues() {
+    this.product.sizes.forEach(size => {
+      this.sizes.push(new FormControl(size, Validators.required));
+    });
+
+    this.product.quantity.forEach(quantity => {
+      this.quantity.push(new FormControl(quantity, Validators.required));
     });
   }
 

@@ -5,14 +5,14 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, take, delay } from 'rxjs/operators';
 
 import { Product } from 'src/app/shared';
-import { ProductService } from 'src/app/products/services/product.service';
+import { HttpProductObservableService } from 'src/app/products';
 
 @Injectable({
   providedIn: 'any'
 })
 export class ProductResolveGuard implements Resolve<Product> {
   constructor(
-    private productService: ProductService,
+    private httpProductObservableService: HttpProductObservableService,
     private router: Router
   ) {}
 
@@ -21,7 +21,7 @@ export class ProductResolveGuard implements Resolve<Product> {
 
     const id = +route.paramMap.get('itemID');
 
-    return this.productService.getProduct(id.toString()).pipe(
+    return this.httpProductObservableService.getProduct(id).pipe(
       delay(2000),
       map((item: Product) => {
         if (item) {
