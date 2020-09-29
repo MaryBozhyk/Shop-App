@@ -1,37 +1,47 @@
-import { Component, DoCheck } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, DoCheck, OnDestroy } from '@angular/core';
 
 import { CartService } from './cart.service';
 import { OrdersService } from '../orders';
-import { HttpProductService, HttpProductObservableService } from '../products/services';
 import { CartItem, Product } from '../shared';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Store, select } from '@ngrx/store';
+import { selectProductsData } from '../core/@ngrx/products/products.selectors';
+import * as ProductsActions from '../core/@ngrx/products/products.actions';
 
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent implements DoCheck {
+export class CartListComponent implements DoCheck, OnDestroy {
   cartProducts: Array<CartItem>;
   totalSumm: number;
   totalQty: number;
   sortOption: string;
   sortOrder = false;
   sortingProperties: string[] = ['name', 'price', 'quantity'];
-  stockProducts: Product[];
+  stockProducts: Product[] = [];
+
+  private unsubscribe: Subject<void> = new Subject();
 
   constructor(
     private cartService: CartService,
     private ordersService: OrdersService,
-    private httpProductService: HttpProductService,
-    private httpProductObservableService: HttpProductObservableService,
-    private router: Router
+    private store: Store
   ) { }
 
   ngDoCheck(): void {
     this.cartProducts = this.cartService.getCartList();
     this.totalSumm = this.cartService.totalSumm;
     this.totalQty =  this.cartService.totalQuantity;
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   onRemove(item: CartItem): void {
@@ -56,23 +66,37 @@ export class CartListComponent implements DoCheck {
   }
 
   private updateProductsAndNavigate(cartItems: CartItem[]) {
-    this.httpProductService.getAllProducts()
-    .then((products) => {
-      this.stockProducts = products;
-
-      cartItems.forEach(item => {
-        this.stockProducts
-        .filter(product => product.id === item.id)
-        .map(product => {
-          product.quantity[product.sizes.indexOf(item.size)] -= item.quantity;
-          this.httpProductObservableService.updateProduct(product)
-          .subscribe((err) => console.error(err));
+    const observer: any = {
+      next: (products: Product[]) => {
+        this.stockProducts = [...products];
+        cartItems.forEach(item => {
+          this.stockProducts
+          .filter(product => +product.id === +item.id)
+          .map(product => {
+            const productQuantity = [...product.quantity];
+            productQuantity[product.sizes.indexOf(item.size)] -= item.quantity;
+            return {
+              ...product,
+              quantity: productQuantity
+            };
+          })
+          .map(product => this.store.dispatch(ProductsActions.updateProduct({ product, url: '/orders' })));
         });
-      });
+        this.onRemoveAll();
+      },
+      error(err) {
+        console.log(err);
+      },
+      complete() {
+        console.log('Stream is completed');
+      }
+    };
 
-      this.onRemoveAll();
-      this.router.navigate(['/orders']);
-    })
-    .catch((err) => console.error(err));
+    this.store
+      .pipe(
+        select(selectProductsData),
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe(observer);
   }
 }

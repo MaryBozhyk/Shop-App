@@ -68,7 +68,7 @@ Task 4
 
 Task 5
 
-1. - 4. Створено /main, /about, /cart, /orders сторінки. З /main при кліку на товар ми перезодимо на /product/:productID.
+1.-4. Створено /main, /about, /cart, /orders сторінки. З /main при кліку на товар ми перезодимо на /product/:productID.
 Для /cart і /orders застосовано лейзі-лоадінг і прелоадінг.
 
 5. Створено
@@ -82,10 +82,15 @@ Task 5
 
 Task 6
 
-1. - 2. Реалізовано бекенд за допомогою json-server та замінено вміст комнди npm start;
+1.-2. Реалізовано бекенд за допомогою json-server та замінено вміст комнди npm start;
 
-3. - 4. Створено HttpProductObservableService та HttpProductService для роботи з HttpClient та реалізації методів по схемі Observable та Promise відповідною 
+3.-4. Створено HttpProductObservableService та HttpProductService для роботи з HttpClient та реалізації методів по схемі Observable та Promise відповідною 
  
 5. Реализовано TimingInterceptor.
 
 6. Реализовано сервіс AppSettings.
+
+
+Task 7
+
+1.-2. Впроваджено @ngrx/store, @ngrx/effects та  @ngrx/router-store.

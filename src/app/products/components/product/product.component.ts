@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { Product } from '../../../shared';
+import { Store } from '@ngrx/store';
+import * as RouterActions from './../../../core/@ngrx/router/router.actions';
 
-import { Router } from '@angular/router';
+import { Product } from '../../../shared';
 
 @Component({
   selector: 'app-product',
@@ -13,10 +14,12 @@ import { Router } from '@angular/router';
 export class ProductComponent {
   @Input() item: Product;
 
-  constructor(private router: Router) { }
+  constructor(private store: Store) { }
 
   onBuy() {
     const link = ['product/', this.item.id];
-    this.router.navigate(link);
+    this.store.dispatch(RouterActions.go({
+      path: link
+    }));
   }
 }

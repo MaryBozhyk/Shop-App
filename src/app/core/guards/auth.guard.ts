@@ -5,7 +5,6 @@ import {
     ActivatedRouteSnapshot,
     RouterStateSnapshot,
     CanLoad,
-    Router,
     Route,
     NavigationExtras,
     UrlTree,
@@ -13,6 +12,9 @@ import {
 } from '@angular/router';
 
 import { Observable } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import * as RouterActions from './../@ngrx/router/router.actions';
 
 import { AuthService } from './../services/auth.service';
 
@@ -22,7 +24,7 @@ import { AuthService } from './../services/auth.service';
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
     private authService: AuthService,
-    private router: Router
+    private store: Store
   ) {}
 
   canActivate(
@@ -58,7 +60,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       fragment: 'anchor'
     };
 
-    this.router.navigate(['/login'], navigationExtras);
+    this.store.dispatch(RouterActions.go({
+      path: ['/login'],
+      extras: navigationExtras
+    }));
+
     return false;
   }
 }

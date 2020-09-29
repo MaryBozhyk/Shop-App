@@ -1,14 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, UrlTree } from '@angular/router';
+import { UrlTree } from '@angular/router';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { HttpProductObservableService, HttpProductService } from 'src/app/products';
 import { Product } from 'src/app/shared';
 import { DialogService, CanComponentDeactivate } from 'src/app/core';
 
-import { switchMap, takeUntil } from 'rxjs/operators';
-import { Observable, of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
+import { Store, select } from '@ngrx/store';
+import { selectSelectedProductByUrl } from './../../../core/@ngrx';
+import * as ProductsActions from './../../../core/@ngrx/products/products.actions';
+import * as RouterActions from './../../../core/@ngrx/router/router.actions';
 
 @Component({
   selector: 'app-edit-product',
@@ -18,7 +21,8 @@ import { Observable, of, Subject } from 'rxjs';
 export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   product: Product;
   itemForm: FormGroup;
-  productCopy: Product;
+  canBuild = false;
+  isSubmit = false;
 
   private unsubscribe: Subject<void> = new Subject();
 
@@ -39,35 +43,37 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
   }
 
   constructor(
-    private httpProductObservableService: HttpProductObservableService,
-    private httpProductService: HttpProductService,
     private dialogService: DialogService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store
   ) {
   }
 
   ngOnInit(): void {
-    const observer = {
-      next: (product: Product) => {
-        this.product = { ...product };
-        this.buildForm();
-        this.setFormValues();
-        this.productCopy = {...this.product};
-      },
-      error: (err: any) => console.error(err)
-    };
+      const observer: any = {
+        next: (product: Product) => {
+          this.product = { ...product };
 
-    this.route.paramMap
-      .pipe(
-        takeUntil(this.unsubscribe),
-        switchMap((params: ParamMap) => {
-          return params.get('itemID')
-            ? this.httpProductObservableService.getProduct(+params.get('itemID'))
-            : of(null);
-        })
-      ).subscribe(observer);
+          if (Object.keys(this.product).length > 0) {
+            this.canBuild = true;
+            this.buildForm();
+            this.setFormValues();
+          }
+        },
+        error(err) {
+          console.log(err);
+        },
+        complete() {
+          console.log('Stream is completed');
+        }
+      };
+
+      this.store
+        .pipe(
+          select(selectSelectedProductByUrl),
+          takeUntil(this.unsubscribe)
+        )
+        .subscribe(observer);
   }
 
   ngOnDestroy(): void {
@@ -76,30 +82,20 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
   }
 
   onSubmit() {
-    const observer = {
-      next: () => {
-        this.router.navigate(['/admin'], { queryParams: { id: this.product.id } });
-        this.product = {...this.productCopy};
-      },
-      error: (err: any) => console.error(err)
-    };
-
     this.getFormValues();
-    this.httpProductObservableService.updateProduct(this.productCopy)
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe(observer);
+    this.store.dispatch(ProductsActions.updateProduct({ product: this.product, url: '/admin' }));
+    this.isSubmit = true;
   }
 
   onDeleteItem() {
-    this.httpProductService
-      .deleteProduct(this.product)
-      .then(() => (this.router.navigate(['/admin'])))
-      .catch(err => console.error(err));
+    this.store.dispatch(ProductsActions.deleteProduct({ product: this.product }));
   }
 
   onGoBack() {
     this.getFormValues();
-    this.router.navigate(['/admin']);
+    this.store.dispatch(RouterActions.go({
+      path: ['/admin']
+    }));
   }
 
   canDeactivate():
@@ -107,26 +103,13 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
   | Promise<boolean | UrlTree>
   | boolean
   | UrlTree {
-    const flags = Object.keys(this.product).map(key => {
-      if (this.product[key] === this.productCopy[key]) {
-        return true;
-      }
-
-      if (Array.isArray(this.product[key])) {
-        for (let i = 0; i < this.product[key].length; i++) {
-          if (this.product[key][i] !== this.productCopy[key][i]) {
-            return false;
-          }
-        }
-        return true;
-      }
-      return false;
-    });
-
-    if (flags.every(el => el)) {
+    if (this.isSubmit) {
       return true;
-    }
+   }
 
+    if (this.itemForm.pristine) {
+      return true;
+   }
     return this.dialogService.confirm('Discard changes?');
   }
 
@@ -150,9 +133,9 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
   }
 
   private getFormValues() {
-    this.productCopy.name = this.name.value;
-    this.productCopy.price = this.price.value;
-    this.productCopy.sizes = this.sizes.value;
-    this.productCopy.quantity = this.quantity.value;
+    this.product.name = this.name.value;
+    this.product.price = this.price.value;
+    this.product.sizes = this.sizes.value;
+    this.product.quantity = this.quantity.value;
   }
 }

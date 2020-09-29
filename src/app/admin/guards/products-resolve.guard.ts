@@ -1,41 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Resolve } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { map, catchError, take, delay } from 'rxjs/operators';
+import { map, catchError, take, tap, delay } from 'rxjs/operators';
 
-import { Product } from 'src/app/shared';
+import { Product, ProductModel } from 'src/app/shared';
 import { HttpProductObservableService } from 'src/app/products';
+
+import { Store, select } from '@ngrx/store';
+import { selectSelectedProductByUrl } from './../../core/@ngrx';
+import * as ProductsActions from './../../core/@ngrx/products/products.actions';
+import * as RouterActions from './../../core/@ngrx/router/router.actions';
 
 @Injectable({
   providedIn: 'any'
 })
 export class ProductResolveGuard implements Resolve<Product> {
   constructor(
-    private httpProductObservableService: HttpProductObservableService,
-    private router: Router
+    private store: Store,
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<Product | null> {
-    console.log('ProductResolve Guard is called');
+  resolve(): Observable<Product> | null {
+    console.log('ProductsResolve Guard is called');
 
-    const id = +route.paramMap.get('itemID');
-
-    return this.httpProductObservableService.getProduct(id).pipe(
+    return this.store.pipe(
+      select(selectSelectedProductByUrl),
+      tap(product => this.store.dispatch(ProductsActions.setOriginalProduct({ product }))),
       delay(2000),
-      map((item: Product) => {
-        if (item) {
-          return item;
+      map((product: ProductModel) => {
+        if (product) {
+          return product;
         } else {
-          this.router.navigate(['/admin']);
+          this.store.dispatch(RouterActions.go({
+            path: ['/admin']
+          }));
           return null;
         }
       }),
       take(1),
       catchError(() => {
-        this.router.navigate(['/admin']);
+        this.store.dispatch(RouterActions.go({
+          path: ['/admin']
+        }));
         return of(null);
-      })
+      }),
     );
   }
 }

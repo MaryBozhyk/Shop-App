@@ -12,3 +12,21 @@ export interface Product {
     color: string;
     photo: string;
 }
+
+export class ProductModel implements Product {
+    constructor(
+        public id: string = null,
+        public name: string = '',
+        public description: string = '',
+        public price: number = 0,
+        public category: Category = Category.Running,
+        public isAvailable: boolean = false,
+        public color: string = '',
+        public photo: string = '',
+        public quantity?: Array<number>,
+        public sizes?: Array<number>
+    ) {
+        this.quantity = quantity || [];
+        this.sizes = sizes || [];
+    }
+}

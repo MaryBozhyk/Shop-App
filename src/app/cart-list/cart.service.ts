@@ -73,7 +73,7 @@ export class CartService {
   }
 
   removeAllProducts(): void {
-    this.basketItems.length = 0;
+    this.basketItems = [];
     this._updateCartData();
   }
 

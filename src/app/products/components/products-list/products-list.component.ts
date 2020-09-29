@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { HttpProductService, HttpProductObservableService } from '../../services';
 import { Product } from '../../../shared';
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+
+import { Store, select } from '@ngrx/store';
+import { selectProductsData, selectProductsError } from './../../../core/@ngrx';
 
 @Component({
   selector: 'app-products-list',
@@ -12,22 +13,20 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./products-list.component.css']
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
-  products: Promise<Product[]>;
   bestSeller: Product;
+
+  products$: Observable<ReadonlyArray<Product>>;
+  productsError$: Observable<Error | string>;
 
   private unsubscribe: Subject<void> = new Subject();
 
   constructor(
-    private httpProductService: HttpProductService,
-    private httpProductObservableService: HttpProductObservableService
+    private store: Store
   ) { }
 
   ngOnInit(): void {
-    this.products = this.httpProductService.getAllProducts();
-    this.httpProductObservableService.getProduct(0)
-    .pipe(
-      takeUntil(this.unsubscribe)
-    ).subscribe(product => this.bestSeller = product);
+    this.products$ = this.store.pipe(select(selectProductsData));
+    this.productsError$ = this.store.pipe(select(selectProductsError));
   }
 
   ngOnDestroy(): void {
@@ -38,5 +37,4 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   trackByName(index: number, product: Product): string {
     return product.name;
   }
-
 }

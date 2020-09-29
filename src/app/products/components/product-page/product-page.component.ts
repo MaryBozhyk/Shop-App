@@ -1,43 +1,57 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, QueryList, ViewChildren, OnDestroy } from '@angular/core';
 
 import { Product } from '../../../shared';
-import { HttpProductObservableService } from '../../services';
-
-import { switchMap } from 'rxjs/operators';
 import { SizeButtonComponent } from '../size-button/size-button.component';
 import { ChooseSize } from '../../models/choose-size.model';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Store, select } from '@ngrx/store';
+import { selectSelectedProductByUrl } from './../../../core/@ngrx';
 
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.css']
 })
-export class ProductPageComponent implements OnInit {
+export class ProductPageComponent implements OnInit, OnDestroy {
   @ViewChildren('sizeButton') sizeButtons: QueryList<SizeButtonComponent>;
 
   disableButton = true;
   itemSize: number;
   product: Product;
 
+  private componentDestroyed$: Subject<void> = new Subject<void>();
+
   constructor(
-    private httpProductObservableService: HttpProductObservableService,
-    private route: ActivatedRoute
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-
-    const observer = {
-      next: (product: Product) => (this.product = { ...product }),
-      error: (err: any) => console.error(err)
+    const observer: any = {
+      next: (product: Product) => {
+        this.product = { ...product };
+      },
+      error(err) {
+        console.log(err);
+      },
+      complete() {
+        console.log('Stream is completed');
+      }
     };
 
-    this.route.paramMap
+    this.store
       .pipe(
-        switchMap((params: ParamMap) => {
-          return this.httpProductObservableService.getProduct(+params.get('productID'));
-        }))
+        select(selectSelectedProductByUrl),
+        takeUntil(this.componentDestroyed$)
+      )
       .subscribe(observer);
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
    onChangeSize(item: ChooseSize) {

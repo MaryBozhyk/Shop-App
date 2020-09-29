@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { httpInterceptorProviders } from './core';
+import { RootStoreModule } from './core/@ngrx/root-store.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { httpInterceptorProviders } from './core';
     ProductModule,
     LayoutModule,
     HttpClientModule,
+    RootStoreModule,
     AppRoutingModule
   ],
   providers: [httpInterceptorProviders],

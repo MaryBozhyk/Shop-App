@@ -1,5 +1,5 @@
 <h2 class="orders-title"> <img src="../assets/list.svg" alt="orders icon" class="orders-icon"> Orders </h2>
-<ng-container *ngIf="orders.length; else elseblock">
+<ng-container *ngIf="orders?.length; else elseblock">
     <section *ngFor="let order of orders" class="order-info">
         <div class="order-main-info">
             <p>{{order.id}}</p>

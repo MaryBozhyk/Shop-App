@@ -5,8 +5,7 @@ import { AdminComponent } from './admin.component';
 import { ProductsComponent, AddProductComponent, EditProductComponent, OrdersComponent } from './components';
 import { CanDeactivateGuard } from './../core';
 import { AuthGuard } from '../core/guards/auth.guard';
-import { ProductResolveGuard } from './guards/products-resolve.guard';
-
+import { ProductsStatePreloadingGuard } from '../products/guards';
 
 const routes: Routes = [
   {
@@ -24,12 +23,9 @@ const routes: Routes = [
           canDeactivate: [CanDeactivateGuard],
         },
         {
-          path: 'edit/:itemID',
+          path: 'edit/:productID',
           component: EditProductComponent,
-          canDeactivate: [CanDeactivateGuard],
-          resolve: {
-            product: ProductResolveGuard
-          }
+          canDeactivate: [CanDeactivateGuard]
         },
         {
           path: 'orders',
@@ -37,7 +33,8 @@ const routes: Routes = [
         },
         {
           path: '',
-          component: ProductsComponent
+          component: ProductsComponent,
+          canActivate: [ProductsStatePreloadingGuard]
         }
       ]
     }

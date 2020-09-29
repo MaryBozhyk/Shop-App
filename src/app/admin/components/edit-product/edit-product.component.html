@@ -1,6 +1,6 @@
 <h2 class="edit-title"> <img src="../assets/edit.svg" alt="edit icon" class="edit-icon"> Edit</h2>
 
-<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" *ngIf="product">
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()" *ngIf="canBuild">
     <div class="form-field form-raw">
         <label for="name" class="form-field-lable">Name:</label>
         <input id="name" formControlName="name" class="form-value form-field-name"/> 

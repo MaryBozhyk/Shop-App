@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import * as RouterActions from './../../../core/@ngrx/router/router.actions';
 
 import { Product } from 'src/app/shared';
 
@@ -11,10 +13,12 @@ import { Product } from 'src/app/shared';
 export class ProductComponent {
   @Input() item: Product;
 
-  constructor(private router: Router) { }
+  constructor(private store: Store) { }
 
   onEdit(): void {
     const link = ['/admin/edit/', this.item.id];
-    this.router.navigate(link);
+    this.store.dispatch(RouterActions.go({
+      path: link
+    }));
   }
 }

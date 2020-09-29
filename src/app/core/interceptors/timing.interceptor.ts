@@ -22,7 +22,7 @@ export class TimingInterceptor implements HttpInterceptor {
         map((event: HttpResponse<any>) => {
           if (event.url.includes('product')) {
             const requestTime = Date.now() - clonedRequest.params.get('timing_interceptor');
-            console.log(`The request tool ${requestTime} ms.`);
+            console.log(`The request took ${requestTime} ms.`);
           }
           return event;
         })

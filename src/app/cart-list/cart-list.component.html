@@ -1,6 +1,6 @@
 
 <h2 class="basket-title"> <img src="../assets/basket.png" alt="basket icon" class="basket-icon"> Basket </h2>
-<section class="cart-list" *ngIf="cartProducts.length; else emptyCart">
+<section class="cart-list" *ngIf="cartProducts?.length; else emptyCart">
     <div class="form-group">
         <select class="form-control" name="sorting" [(ngModel)]="sortOption">
             <option value="undefined" disabled hidden>Sort by...</option>

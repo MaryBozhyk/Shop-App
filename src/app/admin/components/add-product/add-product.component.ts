@@ -1,23 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, UrlTree } from '@angular/router';
+import { UrlTree } from '@angular/router';
 
 import { Category, Product } from 'src/app/shared';
-import { HttpProductService } from 'src/app/products';
 import { CanComponentDeactivate, DialogService } from 'src/app/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Store, select } from '@ngrx/store';
+import { selectProductsData } from './../../../core/@ngrx';
+import * as ProductsActions from './../../../core/@ngrx/products/products.actions';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent implements OnInit, CanComponentDeactivate {
+export class AddProductComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   keys: string[];
   categories: typeof Category = Category;
   product: Product;
   addForm: FormGroup;
+
+  private unsubscribe: Subject<void> = new Subject();
 
   get sizes() {
     return this.addForm.get('sizes') as FormArray;
@@ -28,10 +34,9 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate {
   }
 
   constructor(
-    private httpProductService: HttpProductService,
     private dialogService: DialogService,
-    private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store
   ) {
     this.keys = Object.keys(this.categories).filter(k => !isNaN(Number(k)));
   }
@@ -40,23 +45,45 @@ export class AddProductComponent implements OnInit, CanComponentDeactivate {
     this.buildForm();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
   onAddSize() {
     this.sizes.push(this.fb.control('', [Validators.required]));
     this.quantity.push(this.fb.control('', [Validators.required]));
   }
 
   onSubmit() {
-    this.httpProductService.getAllProducts()
-    .then(products => {
-      this.product = {
-        id: +products[products.length - 1].id + 1,
-        ...this.addForm.value,
-        isAvailable: this.quantity.value.some(value => value > 0)
-      };
-    })
-    .then(() => this.httpProductService.addProduct(this.product))
-    .then(() => this.router.navigate(['/admin'], { queryParams: { id: this.product.id }}))
-    .catch(err => console.error(err));
+    this.store.dispatch(ProductsActions.getProducts());
+
+    const observer: any = {
+      next: (products: Product[]) => {
+        const productsCopy = [...products];
+
+        this.product = {
+          id: +productsCopy[products.length - 1].id + 1,
+          ...this.addForm.value,
+          isAvailable: this.quantity.value.some(value => value > 0)
+        };
+      },
+      error(err) {
+        console.log(err);
+      },
+      complete() {
+        console.log('Stream is completed');
+      }
+    };
+
+    this.store
+      .pipe(
+        select(selectProductsData),
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe(observer);
+
+    this.store.dispatch(ProductsActions.addProduct({ product: this.product }));
   }
 
   canDeactivate():

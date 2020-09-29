@@ -1,7 +1,14 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 
-import { ConfigOptionsService, ConstanService, GeneratorService, LocalStorageService, GeneratorServiceN, GeneratorFactory} from '../../../core';
-import { Config } from '../../../core';
+import {
+  ConfigOptionsService,
+  ConstanService,
+  GeneratorService,
+  LocalStorageService,
+  GeneratorServiceN,
+  GeneratorFactory,
+  Config
+} from '../../../core';
 
 const newConstantService = new ConstanService();
 @Component({

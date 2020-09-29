@@ -11,7 +11,7 @@ export class GeneratorService {
     let randomCombination = '';
 
     for (let i = 0; i <  stringLength; i++) {
-      randomCombination += this.possibleCharacters.charAt(Math.floor(Math.random() * this.possibleCharacters.length));
+      randomCombination += this.possibleCharacters.charAt(Math.floor(Math.random() * this.possibleCharacters?.length));
     }
 
     return randomCombination;

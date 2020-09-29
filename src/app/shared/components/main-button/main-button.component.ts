@@ -1,5 +1,7 @@
 import { Component, HostListener, Input } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import * as RouterActions from './../../../core/@ngrx/router/router.actions';
 
 @Component({
   selector: 'app-main-button',
@@ -9,10 +11,12 @@ import { Router } from '@angular/router';
 export class MainButtonComponent {
   @Input() title = 'Start shopping';
 
-  constructor(private router: Router) { }
+  constructor(private store: Store) { }
 
   @HostListener('click', ['$event.target'])
   onClick() {
-    this.router.navigate(['/home']);
+    this.store.dispatch(RouterActions.go({
+      path: ['/home']
+    }));
   }
 }

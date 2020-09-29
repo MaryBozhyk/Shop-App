@@ -121,6 +121,12 @@
       "price": 51.2,
       "category": "Category.Tennis",
       "isAvailable": false,
+      "sizes": [
+        ""
+      ],
+      "quantity": [
+        "0"
+      ],
       "color": "Black",
       "photo": "assets/ADI12827_1000_6.jpg"
     },
