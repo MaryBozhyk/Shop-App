@@ -8,10 +8,7 @@ import { DialogService, CanComponentDeactivate } from 'src/app/core';
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
-import { Store, select } from '@ngrx/store';
-import { selectSelectedProductByUrl } from './../../../core/@ngrx';
-import * as ProductsActions from './../../../core/@ngrx/products/products.actions';
-import * as RouterActions from './../../../core/@ngrx/router/router.actions';
+import { ProductsFacade } from './../../../core/@ngrx';
 
 @Component({
   selector: 'app-edit-product',
@@ -45,7 +42,7 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
   constructor(
     private dialogService: DialogService,
     private fb: FormBuilder,
-    private store: Store
+    private productsFacade: ProductsFacade
   ) {
   }
 
@@ -68,9 +65,8 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
         }
       };
 
-      this.store
+      this.productsFacade.selectedProductByUrl$
         .pipe(
-          select(selectSelectedProductByUrl),
           takeUntil(this.unsubscribe)
         )
         .subscribe(observer);
@@ -83,19 +79,17 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
 
   onSubmit() {
     this.getFormValues();
-    this.store.dispatch(ProductsActions.updateProduct({ product: this.product, url: '/admin' }));
+    this.productsFacade.updateProduct({ product: this.product, url: '/admin' });
     this.isSubmit = true;
   }
 
   onDeleteItem() {
-    this.store.dispatch(ProductsActions.deleteProduct({ product: this.product }));
+    this.productsFacade.deleteProduct({ product: this.product });
   }
 
   onGoBack() {
     this.getFormValues();
-    this.store.dispatch(RouterActions.go({
-      path: ['/admin']
-    }));
+    this.productsFacade.goTo({ path: ['/admin'] });
   }
 
   canDeactivate():

@@ -1,7 +1,7 @@
-<ng-container *ngFor="let product of ((products$ | async) | slice :0:1); trackBy: trackByName">
+<ng-container *ngFor="let product of ((products$ | async) | slice :0:1); trackBy: trackById">
     <app-first [bestSeller]="product" *ngIf="products$"></app-first>
 </ng-container>
 <p *ngIf="(productsError$ | async) as value">{{value}}</p>
 <div class="products-container">
-    <app-product *ngFor="let product of ((products$ | async) | slice :1); trackBy: trackByName" [item]="product"></app-product>
+    <app-product *ngFor="let product of ((products$ | async) | slice :1); trackBy: trackById" [item]="product"></app-product>
 </div>

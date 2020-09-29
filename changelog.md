@@ -94,3 +94,4 @@ Task 6
 Task 7
 
 1.-2. Впроваджено @ngrx/store, @ngrx/effects та  @ngrx/router-store.
+5. Застовано Facade.

@@ -1,1 +1,1 @@
-<app-product *ngFor="let product of (products$ | async); trackBy: trackByName" [item]="product" [ngClass]="{'edited': product.id == editedItemId}"></app-product>
+<app-product *ngFor="let product of (products$ | async); trackBy: trackById" [item]="product" [ngClass]="{'edited': product.id == editedItemId}"></app-product>

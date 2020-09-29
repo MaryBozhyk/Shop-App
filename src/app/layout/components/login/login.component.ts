@@ -4,8 +4,7 @@ import { NavigationExtras } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Store } from '@ngrx/store';
-import * as RouterActions from './../../../core/@ngrx/router/router.actions';
+import { ProductsFacade } from './../../../core/@ngrx';
 
 import { AuthService } from 'src/app/core';
 
@@ -20,7 +19,7 @@ export class LoginComponent implements OnDestroy {
 
   constructor(
     public authService: AuthService,
-    private store: Store
+    private productsFacade: ProductsFacade
   ) { }
 
   ngOnDestroy() {
@@ -39,7 +38,7 @@ export class LoginComponent implements OnDestroy {
             queryParamsHandling: 'preserve',
             preserveFragment: true
           };
-          this.store.dispatch(RouterActions.go({
+          this.productsFacade.goTo(({
             path: [redirect],
             extras: navigationExtras
           }));

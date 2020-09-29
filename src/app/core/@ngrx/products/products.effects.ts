@@ -52,7 +52,7 @@ export class ProductsEffects {
     )
   );
 
-  createUpdateDeleteTaskSuccess$: Observable<Action> = createEffect(() =>
+  createUpdateDeleteProductSuccess$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductsActions.addProductSuccess, ProductsActions.updateProductSuccess, ProductsActions.deleteProductSuccess),
       map(action => {

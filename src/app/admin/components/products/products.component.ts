@@ -5,8 +5,7 @@ import { Product } from 'src/app/shared';
 
 import { Observable } from 'rxjs';
 
-import { Store, select } from '@ngrx/store';
-import { selectProductsData } from './../../../core/@ngrx';
+import { ProductsFacade } from './../../../core/@ngrx';
 
 @Component({
   selector: 'app-products',
@@ -18,16 +17,16 @@ export class ProductsComponent implements OnInit {
   editedItemId: number;
 
   constructor(
-    private store: Store,
+    private productsFacade: ProductsFacade,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.products$ = this.store.pipe(select(selectProductsData));
+    this.products$ = this.productsFacade.products$;
     this.editedItemId = +this.router.url.slice(10);
   }
 
-  trackByName(index: number, product: Product): string {
-    return product.name;
+  trackById(index: number, product: Product): string {
+    return product.id;
   }
 }

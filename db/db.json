@@ -10,7 +10,7 @@
       "quantity": [
         36,
         25,
-        21,
+        "40",
         15
       ],
       "sizes": [
@@ -31,7 +31,7 @@
       "isAvailable": true,
       "quantity": [
         "15",
-        5,
+        "15",
         "5"
       ],
       "sizes": [
@@ -129,144 +129,6 @@
       ],
       "color": "Black",
       "photo": "assets/ADI12827_1000_6.jpg"
-    },
-    {
-      "id": "8",
-      "name": "UNDER ARMOUR HOVR INFINITE WOMEN'S RUNNING SHOES (1)",
-      "description": "The engineered mesh upper will allow you to keep going for hour after hour in maximised comfort. Air can constantly flow in and out of the mesh, which will remove all of the warm air produced from exercise, replacing it with cooler air from outside, providing a cycle of ventilation. Once your foot begins to sweat, the mesh will allow the moisture to escape out of the shoe. Once wicked away, the material will dry off quickly, returning the shoe to its original weight and feel. Thicker material covers the forefoot, which will absorb shocks instantly, preventing them from reaching and damaging the toes. For rearfoot protection and durability, there is an internal heel counter. This will provide additional support, keeping your foot in a firm and upright position, and it will keep the rearfoot locked in place. To improve your visibility during night time running, the shoe has 360-degree reflectivity, making you easy to spot. The laces are elasticated and are easy to tighten and loosen all the way up the foot for a secure fit. A soft padded tongue will make the fitting feel extremely comfortable (1).",
-      "price": 79.35,
-      "category": "Category.Running",
-      "isAvailable": true,
-      "color": "Grey",
-      "quantity": [
-        50,
-        30,
-        20
-      ],
-      "sizes": [
-        36,
-        37,
-        40
-      ],
-      "photo": "assets/UND5180_1000_4.jpg"
-    },
-    {
-      "id": "9",
-      "name": "ADIDAS TERREX FOLGIAN HIKER GORE-TEX WOMEN'S WALKING SHOES - AW20 (1)",
-      "description": "Offering you full waterproof protection all the way around the upper, the boot boasts using a GORE-TEX membrane to provide you with durable waterproofing. This will mean that no moisture is able to penetrate through the upper, which will keep your feet completely dry in any conditions. Despite sealing all moisture out, the air is still able to travel in and out of the upper. This will mean that the warm air that builds up within each boot can escape out freely, ensuring that the temperature within the shoes is maintained. Designed to stand up against abuse, the upper is extremely durable, protecting both itself and the feet from any heavy contacts or forces. Firm and thick protection also surround vulnerable areas like the toes and ankles, providing further protection. The material on the upper is able to stretch, making it ideal for a variety of different activities and intensities. To add security and stability, an EVA stabilisation frame will keep your feet in a strong and healthy position. A lace closure system will allow you to secure the fit all the way up the feet, providing a snug and comfortable fit no matter what. A soft and padded tongue paired with an ankle collar will reduce the risk of irritation caused by rubbing and chafing (1).",
-      "price": 118.2,
-      "category": "Category.Outdor",
-      "isAvailable": true,
-      "quantity": [
-        40,
-        40,
-        40
-      ],
-      "sizes": [
-        36,
-        39,
-        40
-      ],
-      "color": "Grey",
-      "photo": "assets/ADI13299_1000_1.jpg"
-    },
-    {
-      "id": "10",
-      "name": "UNDER ARMOUR TRIBASE REIGN 2 WOMEN'S TRAINING SHOES - SS20 (1)",
-      "description": "When you hit the gym, you need to feel as connected with the floor as possible. Every lift, rep and WOD starts from the ground up. Under Armour's TriBase technology maximises ground control with three points of contact for a low, stable base that allows natural foot flexibility.    The TriBase Reign are another in a long-line of well constructed shoes from Under Armour, built using tough ripstop materials and a durable mesh for lightweight support these are the perfect gym shoe. An external heel counter has also been added for increased stability and heel lock-in helping keep your feet in place. This helps reduces the risk of injury in the gym and gives you a more comfortable and tailored fit for your feet(1).",
-      "price": 110.43,
-      "category": "Category.Gym",
-      "isAvailable": true,
-      "quantity": [
-        40,
-        40,
-        40,
-        40
-      ],
-      "sizes": [
-        36,
-        37,
-        38,
-        39
-      ],
-      "color": "Black",
-      "photo": "assets/UND5940_1000_1.jpg"
-    },
-    {
-      "id": "11",
-      "name": "ADIDAS SOLECOURT WOMEN'S TENNIS SHOES - AW19 (1)",
-      "description": "The extremely lightweight construction of the upper will ensure that you are able to glide across the court quickly. This will mean that you won't feel any excessive weight from below, freeing you up to make sharp movements from sudden bursts of pace. In addition to this, air is able to transfer from inside the shoe to the outside. This will mean that as you begin to exercise, the build-up of hot air and sweat within the shoe is able to escape, being transferred out of it. This will mean that your feet will feel fresh in a controlled climate. The upper is designed to fit around the foot to lock it into place. This will mean that your feet will always be in a strong and stable position as you make shot, which will improve your confidence to make shots as you won't be let down by your shoes. Abrasion-resistant Adituff wraps around the toe and medial forefoot to help protect against foot drag that occurs during serves, volleys and extreme lateral movements. The heel is also held in a secure and stabilised position, which will prevent injuries from occurring as well as holding you in a firm position. Up the foot laces and a flat-lying tongue will ensure that you will always be able to find a comfortable, non-restrictive and secure fit (1).",
-      "price": 125.34,
-      "category": "Category.Tennis",
-      "isAvailable": true,
-      "quantity": [
-        40,
-        40,
-        40,
-        40
-      ],
-      "sizes": [
-        36,
-        37,
-        38,
-        39
-      ],
-      "color": "Grey",
-      "photo": "assets/ADI12222_1000_1.jpg"
-    },
-    {
-      "id": "12",
-      "name": "ADIDAS ADIZERO CLUB COURT SHOE - SS20 (1)",
-      "description": "The adidas Adizero Court Tennis shoes are an extremely durable outsole rubber assisted by ADIWEAR to secure grip in all directions. An ADITUFF feature has been introduced for better abrasion and resistance. A lightweight design is imperative for and tennis player and this shoe provides this and extra with the mesh upper. (1)",
-      "price": 80.2,
-      "category": "Category.Tennis",
-      "isAvailable": true,
-      "quantity": [
-        40,
-        40,
-        40,
-        40
-      ],
-      "sizes": [
-        36,
-        37,
-        38,
-        39
-      ],
-      "color": "Black",
-      "photo": "assets/ADI12827_1000_6.jpg"
-    },
-    {
-      "name": "NIKE REACT INFINITY RUN FLYKNIT WOMEN'S RUNNING SHOES ",
-      "price": "100",
-      "sizes": [
-        "36"
-      ],
-      "quantity": [
-        "40"
-      ],
-      "color": "color",
-      "category": 3,
-      "photo": "https://www.rebelsport.com.au/dw/image/v2/BBRV_PRD/on/demandware.static/-/Sites-srg-internal-master-catalog/default/dw724dd159/images/58453001/Rebel_58453001_blackwhite_hi-res.jpg?sw=1000&sh=1000&sm=fit",
-      "description": "description",
-      "isAvailable": true,
-      "id": "14"
-    },
-    {
-      "id": 17,
-      "name": "NIKE REACT INFINITY RUN FLYKNIT WOMEN'S RUNNING SHOES ",
-      "price": "100",
-      "sizes": [
-        "36"
-      ],
-      "quantity": [
-        "40"
-      ],
-      "color": "color",
-      "category": "1",
-      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSvRS8z19cbqdymzlrE1Y5GGqvjxqu4_QQucc7jDvskqF934G-qQ7foItZ4&usqp=CAc",
-      "description": "description",
-      "isAvailable": true
     }
   ]
 }

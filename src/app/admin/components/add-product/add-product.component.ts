@@ -8,9 +8,7 @@ import { CanComponentDeactivate, DialogService } from 'src/app/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Store, select } from '@ngrx/store';
-import { selectProductsData } from './../../../core/@ngrx';
-import * as ProductsActions from './../../../core/@ngrx/products/products.actions';
+import { ProductsFacade } from './../../../core/@ngrx';
 
 @Component({
   selector: 'app-add-product',
@@ -36,7 +34,7 @@ export class AddProductComponent implements OnInit, OnDestroy, CanComponentDeact
   constructor(
     private dialogService: DialogService,
     private fb: FormBuilder,
-    private store: Store
+    private productsFacade: ProductsFacade
   ) {
     this.keys = Object.keys(this.categories).filter(k => !isNaN(Number(k)));
   }
@@ -56,8 +54,6 @@ export class AddProductComponent implements OnInit, OnDestroy, CanComponentDeact
   }
 
   onSubmit() {
-    this.store.dispatch(ProductsActions.getProducts());
-
     const observer: any = {
       next: (products: Product[]) => {
         const productsCopy = [...products];
@@ -76,14 +72,13 @@ export class AddProductComponent implements OnInit, OnDestroy, CanComponentDeact
       }
     };
 
-    this.store
+    this.productsFacade.products$
       .pipe(
-        select(selectProductsData),
         takeUntil(this.unsubscribe)
       )
       .subscribe(observer);
 
-    this.store.dispatch(ProductsActions.addProduct({ product: this.product }));
+    this.productsFacade.addProduct({ product: this.product });
   }
 
   canDeactivate():

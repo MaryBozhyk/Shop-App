@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-import * as RouterActions from './../../../core/@ngrx/router/router.actions';
+import { ProductsFacade } from './../../../core/@ngrx';
 
 import { CartItem } from 'src/app/shared';
 import { CartService } from '../../../cart-list';
@@ -17,7 +16,7 @@ export class ButtonComponent {
 
   constructor(
     private cartService: CartService,
-    private store: Store
+    private productsFacade: ProductsFacade
     ) { }
 
   onBuy(): void {
@@ -26,8 +25,6 @@ export class ButtonComponent {
     }
     console.log('You have bought item');
     this.cartService.addItemtoCart(this.cartItem);
-    this.store.dispatch(RouterActions.go({
-      path: ['/cart']
-    }));
+    this.productsFacade.goTo({ path: ['/cart'] });
   }
 }

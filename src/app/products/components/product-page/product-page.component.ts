@@ -7,8 +7,7 @@ import { ChooseSize } from '../../models/choose-size.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Store, select } from '@ngrx/store';
-import { selectSelectedProductByUrl } from './../../../core/@ngrx';
+import { ProductsFacade } from './../../../core/@ngrx';
 
 @Component({
   selector: 'app-product-page',
@@ -24,9 +23,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   private componentDestroyed$: Subject<void> = new Subject<void>();
 
-  constructor(
-    private store: Store
-  ) {}
+  constructor(private productsFacade: ProductsFacade) {}
 
   ngOnInit(): void {
     const observer: any = {
@@ -41,9 +38,8 @@ export class ProductPageComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.store
+    this.productsFacade.selectedProductByUrl$
       .pipe(
-        select(selectSelectedProductByUrl),
         takeUntil(this.componentDestroyed$)
       )
       .subscribe(observer);

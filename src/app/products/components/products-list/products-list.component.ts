@@ -4,9 +4,7 @@ import { Product } from '../../../shared';
 
 import { Subject, Observable } from 'rxjs';
 
-import { Store, select } from '@ngrx/store';
-import { selectProductsData, selectProductsError } from './../../../core/@ngrx';
-
+import { ProductsFacade } from './../../../core/@ngrx';
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
@@ -20,13 +18,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void> = new Subject();
 
-  constructor(
-    private store: Store
-  ) { }
+  constructor(private productsFacade: ProductsFacade) { }
 
   ngOnInit(): void {
-    this.products$ = this.store.pipe(select(selectProductsData));
-    this.productsError$ = this.store.pipe(select(selectProductsError));
+    this.products$ = this.productsFacade.products$;
+    this.productsError$ = this.productsFacade.productsError$;
   }
 
   ngOnDestroy(): void {
@@ -34,7 +30,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.unsubscribe.complete();
   }
 
-  trackByName(index: number, product: Product): string {
-    return product.name;
+  trackById(index: number, product: Product): string {
+    return product.id;
   }
 }
