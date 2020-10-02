@@ -12,6 +12,7 @@ export class BackButtonComponent {
 
   constructor(private store: Store) { }
 
+  // массив не обязательно указывать, если нет параметров в обработчике
   @HostListener('click', ['$event.target'])
   onClick() {
     this.store.dispatch(RouterActions.go({
