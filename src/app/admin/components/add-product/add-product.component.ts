@@ -102,6 +102,8 @@ export class AddProductComponent implements OnInit, OnDestroy, CanComponentDeact
     this.addForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
+      // в даном случае ок, но если размеры и количество связаны между собой, то, думаю, лучше организовать их по другому
+      // как массив групп, состоящих из размера и количества
       sizes: this.fb.array([new FormControl('', Validators.required)]),
       quantity: this.fb.array([new FormControl('', Validators.required)]),
       color: ['', Validators.required],

@@ -16,6 +16,7 @@ export class LocalStorageService {
   }
 
   removeItem(key: string): void {
+    // зачем return?
     return window.localStorage.removeItem(key);
   }
 }
