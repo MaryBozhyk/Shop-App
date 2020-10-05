@@ -8,7 +8,7 @@ export class LocalStorageService {
   constructor() { }
 
   setItem(key: string, value: Config | string): void {
-    return window.localStorage.setItem(key, JSON.stringify(value));
+    window.localStorage.setItem(key, JSON.stringify(value));
   }
 
   getItem(key: string): string {
@@ -16,6 +16,6 @@ export class LocalStorageService {
   }
 
   removeItem(key: string): void {
-    return window.localStorage.removeItem(key);
+    window.localStorage.removeItem(key);
   }
 }

@@ -24,6 +24,13 @@ const routes: Routes = [
     }
   },
   {
+    path: 'process-order',
+    loadChildren: () => import('./process-order').then(m => m.ProcessOrderModule),
+    data: {
+      preload: true
+    }
+  },
+  {
     path: 'admin',
     canLoad: [AuthGuard],
     loadChildren: () => import('./admin').then(m => m.AdminModule)

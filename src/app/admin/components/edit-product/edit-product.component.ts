@@ -127,9 +127,7 @@ export class EditProductComponent implements OnInit, OnDestroy, CanComponentDeac
   }
 
   private getFormValues() {
-    this.product.name = this.name.value;
-    this.product.price = this.price.value;
-    this.product.sizes = this.sizes.value;
-    this.product.quantity = this.quantity.value;
+    const fields = ['name', 'price', 'sizes', 'quantity'];
+    fields.forEach(field => { this.product[field] = this[field].value; }, this);
   }
 }

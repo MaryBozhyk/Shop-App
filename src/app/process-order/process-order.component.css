@@ -1,0 +1,120 @@
+:host {
+    width: 90%;
+    display: block;
+    margin: auto;
+    background-color: #ffffffd9;
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 15px 21px 48px -14px;
+    position: relative;
+    min-height: 335px;
+}
+
+.process-order-icon {
+    width: 30px;
+}
+
+.process-order-title {
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.form-field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-field-lable {
+    min-width: 90px;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.form-field-medium {
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.remove-phone-btn {
+    position: absolute;
+    top: 3px;
+    right: 0;
+}
+
+.add-phone-btn {
+    margin-left: 5px;
+    color: rgba(217, 30, 24, 1);
+    font-weight: bold;
+}
+
+.phone-input-container {
+    position: relative;
+}
+
+.phones-container {
+    margin-right: 5px;
+} 
+
+.form-field-small {
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.form-value {
+    padding: 5px;
+}
+
+.form-raw {
+    margin-bottom: 15px;
+}
+
+.input-with-error {
+    display: flex;
+    flex-direction: column;
+}
+
+.help-block {
+    color: rgba(217, 30, 24, 1);
+    font-weight: bold;
+}
+
+.has-error {
+    color: rgba(217, 30, 24, 1);
+    font-weight: bold;
+}
+
+.has-error .form-field-medium {
+    border-color: rgba(217, 30, 24, 1);
+}
+
+.add-button {
+    width: 20px;
+    height: auto;
+    position: absolute;
+    right: -25px;
+    bottom: -15px;
+}
+
+.admin-button {
+    padding: 10px 50px;
+    font-weight: bold;
+    border: none;
+    background-color: rgba(217, 30, 24, 1);
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px -2px rgba(0,0,0,0.5);
+    margin: 15px 15px 0 0;
+}
+
+.admin-button:hover {
+    background-color: rgba(150, 40, 27, 1);
+    cursor: pointer;
+}
+
+.admin-button:disabled {
+    opacity: 0.7;
+}

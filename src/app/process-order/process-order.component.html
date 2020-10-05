@@ -1,0 +1,56 @@
+<h2 class="process-order-title"> <img src="../assets/add-to-list.svg" alt="process order icon" class="process-order-icon">Process order</h2>
+
+<form [formGroup]="processOrderForm" (ngSubmit)="onSubmit()">
+    <div class="form-field form-raw" [ngClass]="{'has-error': validationMessage.name}">
+        <label for="name" class="form-field-lable">Name:</label>
+        <div class="input-with-error">
+            <input id="name" 
+                formControlName="name" 
+                class="form-field-medium form-value" 
+                placeholder="Add name..." 
+                (blur)="onBlur($event)"/>
+                <span class="help-block" *ngIf="validationMessage">
+                    {{ validationMessage.name }}
+               </span>
+        </div>       
+    </div>
+    <div class="form-field form-raw">
+        <label for="surname" class="form-field-lable">Surname:</label>
+        <input type="text" id="price" formControlName="surname" class="form-field-medium form-value" placeholder="Add surname..."/>
+    </div>
+    <div class="form-field form-raw" [ngClass]="{'has-error': validationMessage.email}">
+        <label for="email" class="form-field-lable">Email:</label>
+        <div class="input-with-error">
+            <input type="text" 
+            id="email" 
+            formControlName="email" 
+            class="form-field-medium form-value" 
+            placeholder="Add email..."
+            appEmailPatternValidator
+            (blur)="onBlur($event)"/>
+            <span class="help-block" *ngIf="validationMessage">
+                {{ validationMessage.email }}
+           </span>
+        </div>        
+    </div>
+    <div class="form-field form-raw">
+        <div formArrayName="phone"  *ngFor="let phone of phones.controls; index as i; first as first; last as last" class="form-field phones-container">
+            <label *ngIf="first" class="form-field-lable">Phones:</label>
+            <div class="phone-input-container">
+                <input type="text" [formControlName]="i" class="form-value form-field-small" placeholder="Add phone...">
+                <p class="cart-property remove-button" class="remove-phone-btn" (click)="onRemovePhone(i)" *ngIf="!first">&#10060;</p>                
+            </div>
+            <p *ngIf="last && i<2" class="add-phone-btn" (click)="onAddPhone()">+ Add phone</p>        
+        </div>
+    </div>
+    <div class="form-field form-raw">
+        <label for="pickup" class="form-field-lable">Pickup</label>
+        <input id="pickup" type="checkbox" formControlName="pickup">
+    </div>   
+    <div class="form-field form-raw" *ngIf="pickup">
+        <label for="adress" class="form-field-lable">Adress:</label>
+        <textarea id="adress" formControlName="adress" placeholder="Add adress..." class="form-value form-field-medium"></textarea>
+    </div>  
+    <button type="button" routerLink="/cart" class="admin-button">Back</button>
+    <button type="submit" [disabled]="!processOrderForm.valid" class="admin-button">Submit</button>
+</form>

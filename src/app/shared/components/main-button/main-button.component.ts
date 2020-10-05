@@ -13,7 +13,7 @@ export class MainButtonComponent {
 
   constructor(private store: Store) { }
 
-  @HostListener('click', ['$event.target'])
+  @HostListener('click')
   onClick() {
     this.store.dispatch(RouterActions.go({
       path: ['/home']
