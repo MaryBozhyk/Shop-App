@@ -29,7 +29,7 @@ export class CartService {
     };
 
     this.basketItems.forEach(x => {
-      if (x.name === data.item.name && x.size === data.size) {
+      if (x.id === data.item.id && x.size === data.size) {
         x.quantity += 1;
         this.newCartItem = null;
       }
@@ -44,7 +44,7 @@ export class CartService {
 
   reduceItemQty(item: CartItem): void {
     this.basketItems.forEach(currentItem => {
-      if (currentItem.name === item.name && currentItem.size === item.size) {
+      if (currentItem.id === item.id && currentItem.size === item.size) {
         currentItem.quantity -= 1;
       }
 
@@ -58,7 +58,7 @@ export class CartService {
 
   increaseItemQty(item: CartItem): void {
     this.basketItems.forEach(currentItem => {
-      if (currentItem.name === item.name && currentItem.size === item.size) {
+      if (currentItem.id === item.id && currentItem.size === item.size) {
         currentItem.quantity += 1;
       }
     });
@@ -81,5 +81,4 @@ export class CartService {
     this.totalQuantity = this.basketItems.reduce((acc, item) => acc + item.quantity, 0);
     this.totalSumm = this.basketItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
   }
-
 }

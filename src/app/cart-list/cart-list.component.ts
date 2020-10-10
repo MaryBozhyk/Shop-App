@@ -4,9 +4,6 @@ import { Router } from '@angular/router';
 import { CartService } from './cart.service';
 import { CartItem } from '../shared';
 
-import { Subject } from 'rxjs';
-
-
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
