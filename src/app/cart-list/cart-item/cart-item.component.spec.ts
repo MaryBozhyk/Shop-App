@@ -27,7 +27,7 @@ describe('CartItemComponent', () => {
     fixture = TestBed.createComponent(CartItemComponent);
     component = fixture.componentInstance;
     component.product = expectedItem;
-    fixture.detectChanges();
+    fixture.detectChanges(); // ниже в тестах уже вызывается
   });
 
   afterEach(() => {
