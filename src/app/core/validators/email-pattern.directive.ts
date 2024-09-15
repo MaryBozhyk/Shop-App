@@ -13,6 +13,8 @@ export class EmailPatternDirective implements Validator {
   validate(c: AbstractControl): ValidationErrors | null {
     const pattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
     const email = c.value;
+    // or
+    // const { value: email } = c;
 
     if (email.match(pattern) || !email) {
         return null;
